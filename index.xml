@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>i do web stuff</title>
+    <link>https://nicklanng.github.io/</link>
+    <description>Recent content on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    
+	<atom:link href="https://nicklanng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
