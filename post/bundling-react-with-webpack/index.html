@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/bundling-react-with-webpack/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Bundling React with Webpack" />
+<meta property="og:description" content="A common complaint of the JavaScript ecosystem is the incredible rate of change.
+ &ldquo;Why bother learning any JavaScript frameworks when they&rsquo;ll just be defunct by next week?&rdquo; - Tommy Developer
+ Tommy is kinda right. Every week there&rsquo;s a new popular Github project, and now some JavaScript frameworks have even started to deprecate themselves with a new release. I believe that you can mitigate this problem, though, by choosing a framework or library that embraces a larger architectural movement." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/bundling-react-with-webpack/" />
+
+
+
+<meta property="article:published_time" content="2016-01-31T21:37:21&#43;00:00"/>
+
+<meta property="article:modified_time" content="2016-01-31T21:37:21&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bundling React with Webpack"/>
+<meta name="twitter:description" content="A common complaint of the JavaScript ecosystem is the incredible rate of change.
+ &ldquo;Why bother learning any JavaScript frameworks when they&rsquo;ll just be defunct by next week?&rdquo; - Tommy Developer
+ Tommy is kinda right. Every week there&rsquo;s a new popular Github project, and now some JavaScript frameworks have even started to deprecate themselves with a new release. I believe that you can mitigate this problem, though, by choosing a framework or library that embraces a larger architectural movement."/>
+
+
+
+<meta itemprop="name" content="Bundling React with Webpack">
+<meta itemprop="description" content="A common complaint of the JavaScript ecosystem is the incredible rate of change.
+ &ldquo;Why bother learning any JavaScript frameworks when they&rsquo;ll just be defunct by next week?&rdquo; - Tommy Developer
+ Tommy is kinda right. Every week there&rsquo;s a new popular Github project, and now some JavaScript frameworks have even started to deprecate themselves with a new release. I believe that you can mitigate this problem, though, by choosing a framework or library that embraces a larger architectural movement.">
+
+
+<meta itemprop="datePublished" content="2016-01-31T21:37:21&#43;00:00" />
+<meta itemprop="dateModified" content="2016-01-31T21:37:21&#43;00:00" />
+<meta itemprop="wordCount" content="1225">
+
+
+
+<meta itemprop="keywords" content="javascript,code," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Bundling React with Webpack 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Bundling React with Webpack </h1>
+    <div class="content"> 
+
+<p>A common complaint of the JavaScript ecosystem is the incredible rate of change.</p>
+
+<blockquote>
+<p>&ldquo;Why bother learning any JavaScript frameworks when they&rsquo;ll just be defunct by next week?&rdquo; - Tommy Developer</p>
+</blockquote>
+
+<p>Tommy is kinda right. Every week there&rsquo;s a new popular Github project, and now some JavaScript frameworks have even started to deprecate themselves with a new release. I believe that you can mitigate this problem, though, by choosing a framework or library that embraces a larger architectural movement. This way, the specific implementation details may change but the concepts are transferable.</p>
+
+<h1 id="what-is-react">What is React?</h1>
+
+<p>One of these architectural movements is bringing the web back to HTML tags. For many years, websites have looked like <em>&lsquo;div soup&rsquo;</em>, an incredibly complex tree of div elements with various classes on them to hook up styles and logic. Long gone are the days of HTML tags that mean anything,  a document model that actually represents the document.</p>
+
+<p><strong>Web Components</strong> is one solution to this problem, custom elements with behavior and logic all bundled together into a reusable component. Salesforce&rsquo;s <strong>Lightning Components</strong> are a similar idea. <strong>React</strong> also tries to solve this problem.</p>
+
+<p>React apps are written in JavaScript. React maintains a <em>virtual DOM</em> that keeps track of state changes between the rendered document and its own idea of what&rsquo;s happening. When React detects a change it updates the properties of the elements on the DOM. How this differs from other client-side frameworks is that React only has to scan its JavaScript based virtual DOM for changes and not the actual document DOM - this allows much faster scanning of changes. It also modifies the elements directly, it does not render the entire element again, which provides speed benefits over similar frameworks.</p>
+
+<h1 id="what-is-webpack">What is Webpack?</h1>
+
+<p>A long time ago, if we wanted to separate our JavaScript code into different files, we&rsquo;d have have to create some global namespace object to hold everything. How many times have you seen a file that starts with something like:</p>
+
+<pre><code class="language-javascript">namespace = namespace || {}
+</code></pre>
+
+<p><strong>Webpack</strong> allows you to separate your JavaScript files in a more structured manner, and uses the same module system that <strong>Browserify</strong>, <strong>Node.js</strong> and <strong>ECMAScript 6</strong> use. Each file is in its own closure, so only things that you explicitly export are available to other files that require it.</p>
+
+<p>Webpack also has the ability to package CSS and images into the same bundle and minify files for production.</p>
+
+<h1 id="the-tutorial-part">The Tutorial Part</h1>
+
+<h3 id="install-webpack">Install Webpack</h3>
+
+<p>The easiest way to get Webpack is to use <strong>npm</strong>, Node Package Manager. This command will install Webpack and make it available in your system&rsquo;s path.</p>
+
+<pre><code class="language-bash">npm install -g webpack
+</code></pre>
+
+<h2 id="set-up-the-project">Set Up the Project</h2>
+
+<p>We&rsquo;ll continue to use npm to get our other dependencies. First we must initialize our project:</p>
+
+<pre><code class="language-bash">npm init
+</code></pre>
+
+<p>The default for all of the prompts is fine for our purposes.</p>
+
+<p>Our only run-time dependencies are React and its Dom manipulation package:</p>
+
+<pre><code class="language-bash">npm install --save react react-dom
+</code></pre>
+
+<p>We have a number of development dependencies:</p>
+
+<pre><code class="language-bash">npm install --save-dev webpack babel-core babel-loader babel-preset-es2015 babel-preset-react
+</code></pre>
+
+<p>We&rsquo;re going to be building our app with ECMAScript 6 features, so we need <strong>Babel</strong> to compile back down to ECMAScript 5, as not all the new features are widely supported yet. Here we install WebPack, Babel and additional dependencies to link the two together.</p>
+
+<h2 id="create-a-simple-react-component">Create a Simple React Component</h2>
+
+<p>Create a folder called <strong>src</strong> that will hold all of our development files. Inside <strong>src</strong>, create another directory called <strong>components</strong>. This folder will hold all of our React components. Create a new file called <strong>HelloWorld.jsx</strong> with the following code:</p>
+
+<pre><code class="language-jsx">// HelloWorld.jsx
+import React from 'react'
+
+export default class HelloWorld extends React.Component {
+  render () {
+    return &lt;h1&gt;Hello World!&lt;/h1&gt;
+  }
+}
+</code></pre>
+
+<p>This is a <strong>jsx</strong> file, which is React&rsquo;s version of JavaScript that allows inline HTML (not to be confused with an HTML file that allows inline JavaScript). This is the bit that normally makes developer&rsquo;s throw up, but just go with it - it really does make a lot of sense. Behind the scenes, this file is compiled down to plain old JavaScript and, if you really wanted to, you could write this file in plain old JavaScript but I promise you don&rsquo;t want to.</p>
+
+<p>This is a simple component that simply renders out a header with the text &lsquo;Hello World&rsquo; in it. Components can have more behavior that this, but for this demonstration this is adequate.</p>
+
+<h2 id="your-main-javascript-file">Your Main JavaScript File</h2>
+
+<p>In the <strong>src</strong> folder, create a file called <strong>main.js</strong> with the following code:</p>
+
+<pre><code class="language-javascript">// main.js
+import React from 'react'
+import ReactDom from 'react-dom'
+import HelloWorld from './components/Helloworld.jsx'
+
+const main = () =&gt; {
+  const domHook = document.getElementById('app')
+  ReactDom.render(&lt;HelloWorld /&gt;, domHook)
+}
+
+main()
+</code></pre>
+
+<p>This is the entry point into the system. All of the rest of the JavaScript will hang off this file.</p>
+
+<h2 id="good-old-index-html">Good Old Index.html</h2>
+
+<p>That&rsquo;s our JavaScript all done, now we need an actual webpage. As all of our HTML tags are defined as React Components, the HTML page is quite minimal. We need an element to hang React off and we need to include our bundled JavaScript.</p>
+
+<p>Create a folder in the root called <strong>dist</strong>. This will be our deployable folder, create a file inside called <strong>index.html</strong> with the following content:</p>
+
+<pre><code class="language-html">&lt;!-- index.html --&gt;
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>But where the heck did <strong>bundle.js</strong> come from? That&rsquo;s the result of Webpack bundling all of our JavaScript together. It has our <strong>main.js</strong>, our <strong>HelloWorld.jsx</strong> and also the <strong>entire React framework</strong> all in one handy file.</p>
+
+<h2 id="bundling-our-files-with-webpack">Bundling Our Files with Webpack</h2>
+
+<p>You don&rsquo;t <em>need</em> to create a configuration file but it is recommended. A lot of these options can be configured as command line arguments on the webpack executable but that would start to get unmanageable very quickly.</p>
+
+<p>Create a file called <strong>webpack.config.js</strong> in the solution root.</p>
+
+<pre><code class="language-javascript">// webpack.config.js
+const path = require('path')
+
+const config = {
+  entry: path.resolve(__dirname, 'src', 'main.js'), // the main entry point to the system
+  output: {
+    path: path.resolve(__dirname, 'dist'), // where to place the bundled file
+    filename: 'bundle.js' // the name of the bundled file
+  },
+  module: {
+    loaders: [{
+      test: /\.jsx?$/, // a regex to choose which files to apply this loader to
+      loader: 'babel', // we'll use the babel-loader
+      query: {
+        presets: ['react', 'es2015'] // choose which babel modes to use
+      }
+    }]
+  }
+}
+
+module.exports = config
+</code></pre>
+
+<p>Now we can run Webpack and create a bundle.
+In the root of your solution run:</p>
+
+<pre><code class="language-bash">webpack
+</code></pre>
+
+<p>This will start with <strong>main.js</strong> and traverse the imports to pull in all the required files into a new file called <strong>bundle.js</strong> and place it in <strong>dist</strong>.</p>
+
+<p>If you want a minified version of the bundle simply run:</p>
+
+<pre><code class="language-bash">webpack -p
+</code></pre>
+
+<h2 id="final-file-layout">Final File Layout</h2>
+
+<p><img src="https://nicklanng.github.io/content/images/2016/01/react-webpack-files.png" alt="Final File Layout" style="width: 200px;"/></p>
+
+<h1 id="what-this-means">What This Means</h1>
+
+<p>Please use something like <strong>Webpack</strong>, or <strong>Browserify</strong>, or even <strong>RequireJS</strong> to pull together separate JavaScript files. Old techniques like the module pattern are implied, every file is a module and only exported things are available to consumers.</p>
+
+<p>React is a great framework for building a UI and has a wide reaching set of companion technology such as <strong>react-router</strong> and <strong>redux</strong>. React can also sit within other frameworks like <strong>Angular</strong> so migrating can be done one component at a time from within an Angular app.</p>
+
+<p>ECMAScript 6 features make JavaScript look almost unrecognizable and encourage a brilliant coding style - learn and use these features as soon as possible!</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/javascript">#javascript</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Jan 31, 2016 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

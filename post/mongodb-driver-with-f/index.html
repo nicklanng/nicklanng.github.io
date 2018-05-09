@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/mongodb-driver-with-f/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="MongoDB Driver with F#" />
+<meta property="og:description" content="I had a bit of difficulty today using MongoDB in F#. This is just simple explanation of my &lsquo;Get all&rsquo; function for posterity.
+let getAllShips (database:IMongoDatabase) = let collection = database.GetCollection&lt;BsonDocument&gt; &#34;ships&#34; let wildcard = FilterDefinition&lt;BsonDocument&gt;.op_Implicit(&#34;{}&#34;) collection.Find(wildcard).ToListAsync() |&gt; Async.AwaitTask |&gt; Async.RunSynchronously |&gt; Seq.map mapDocumentToShip |&gt; List.ofSeq Let&rsquo;s go through this code line by line.
+let getAllShips (database:IMongoDatabase) = In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/mongodb-driver-with-f/" />
+
+
+
+<meta property="article:published_time" content="2015-07-17T12:56:56&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-07-17T12:56:56&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB Driver with F#"/>
+<meta name="twitter:description" content="I had a bit of difficulty today using MongoDB in F#. This is just simple explanation of my &lsquo;Get all&rsquo; function for posterity.
+let getAllShips (database:IMongoDatabase) = let collection = database.GetCollection&lt;BsonDocument&gt; &#34;ships&#34; let wildcard = FilterDefinition&lt;BsonDocument&gt;.op_Implicit(&#34;{}&#34;) collection.Find(wildcard).ToListAsync() |&gt; Async.AwaitTask |&gt; Async.RunSynchronously |&gt; Seq.map mapDocumentToShip |&gt; List.ofSeq Let&rsquo;s go through this code line by line.
+let getAllShips (database:IMongoDatabase) = In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here."/>
+
+
+
+<meta itemprop="name" content="MongoDB Driver with F#">
+<meta itemprop="description" content="I had a bit of difficulty today using MongoDB in F#. This is just simple explanation of my &lsquo;Get all&rsquo; function for posterity.
+let getAllShips (database:IMongoDatabase) = let collection = database.GetCollection&lt;BsonDocument&gt; &#34;ships&#34; let wildcard = FilterDefinition&lt;BsonDocument&gt;.op_Implicit(&#34;{}&#34;) collection.Find(wildcard).ToListAsync() |&gt; Async.AwaitTask |&gt; Async.RunSynchronously |&gt; Seq.map mapDocumentToShip |&gt; List.ofSeq Let&rsquo;s go through this code line by line.
+let getAllShips (database:IMongoDatabase) = In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here.">
+
+
+<meta itemprop="datePublished" content="2015-07-17T12:56:56&#43;00:00" />
+<meta itemprop="dateModified" content="2015-07-17T12:56:56&#43;00:00" />
+<meta itemprop="wordCount" content="362">
+
+
+
+<meta itemprop="keywords" content="code,fsharp,mongodb," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     MongoDB Driver with F# 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> MongoDB Driver with F# </h1>
+    <div class="content"> <p>I had a bit of difficulty today using MongoDB in F#.
+This is just simple explanation of my &lsquo;Get all&rsquo; function for posterity.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#66d9ef">let</span> getAllShips <span style="color:#f92672">(</span>database<span style="color:#f92672">:</span>IMongoDatabase<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">let</span> collection <span style="color:#f92672">=</span> database<span style="color:#f92672">.</span>GetCollection<span style="color:#f92672">&lt;</span>BsonDocument<span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;ships&#34;</span>
+  <span style="color:#66d9ef">let</span> wildcard <span style="color:#f92672">=</span> FilterDefinition<span style="color:#f92672">&lt;</span>BsonDocument<span style="color:#f92672">&gt;.</span>op_Implicit<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{}&#34;</span><span style="color:#f92672">)</span>
+
+  collection<span style="color:#f92672">.</span>Find<span style="color:#f92672">(</span>wildcard<span style="color:#f92672">).</span>ToListAsync()
+  <span style="color:#f92672">|&gt;</span> Async.AwaitTask
+  <span style="color:#f92672">|&gt;</span> Async.RunSynchronously
+  <span style="color:#f92672">|&gt;</span> Seq.map mapDocumentToShip
+  <span style="color:#f92672">|&gt;</span> List.ofSeq</code></pre></div>
+
+<p>Let&rsquo;s go through this code line by line.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#66d9ef">let</span> getAllShips <span style="color:#f92672">(</span>database<span style="color:#f92672">:</span>IMongoDatabase<span style="color:#f92672">)</span> <span style="color:#f92672">=</span></code></pre></div>
+In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#66d9ef">let</span> collection <span style="color:#f92672">=</span> database<span style="color:#f92672">.</span>GetCollection<span style="color:#f92672">&lt;</span>BsonDocument<span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#34;ships&#34;</span></code></pre></div>
+I originally used the MongoDB.FSharp package, but this isn&rsquo;t yet updated to use the new driver. There are a couple of pull requests waiting to be merged to update the driver, but until that happens we have to do some things a little differently. The problem I was having is trying to Map directly to an F# record, it found the MongoDB record but all the values were null.</p>
+
+<p>My MongoDB schema is designed for primarily for the REST API, which is a Node app using Mongoose ODM. The REST API will be reading the data a lot more often than this server app, so I prefer to map from the Mongoose schema to the F# records.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#66d9ef">let</span> wildcard <span style="color:#f92672">=</span> FilterDefinition<span style="color:#f92672">&lt;</span>BsonDocument<span style="color:#f92672">&gt;.</span>op_Implicit<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{}&#34;</span><span style="color:#f92672">)</span></code></pre></div>
+In MongoDB, you search by supplying an object with the fields you want to match in the returned results. To get all the records you need to pass an empty object. So this line is creating a filter for BsonDocument type objects (the base of all MongoDB objects) with an empty object.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp">collection<span style="color:#f92672">.</span>Find<span style="color:#f92672">(</span>wildcard<span style="color:#f92672">).</span>ToListAsync()</code></pre></div>
+Here we&rsquo;re submitting the request to MongoDB and the only method to return a list is asynchronous. This means we have to do a few extra things before we can map the BsonDocument to a Ship.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#f92672">|&gt;</span> Async.AwaitTask</code></pre></div>
+This is a function that takes a System.Threading.Tasks.Task<T> and turns it into an Async<T>.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#f92672">|&gt;</span> Async.RunSynchronously</code></pre></div>
+This is a function that runs the Async and returns the sequence of BsonDocuments.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#f92672">|&gt;</span> Seq.map mapDocumentToShip</code></pre></div>
+Now we pass each BsonDocument through a function to return a Ship record.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fsharp" data-lang="fsharp"><span style="color:#f92672">|&gt;</span> List.ofSeq</code></pre></div>
+And then turn the Ships into a list, so the function returns a Ship List.</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/fsharp">#fsharp</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/mongodb">#mongodb</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Jul 17, 2015 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

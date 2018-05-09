@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on i do web stuff</title>
+    <link>https://nicklanng.github.io/categories/code/</link>
+    <description>Recent content in Code on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Tue, 19 Apr 2016 15:06:08 +0000</lastBuildDate>
+    
+	<atom:link href="https://nicklanng.github.io/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Creating a WebRTC Data Channel</title>
+      <link>https://nicklanng.github.io/post/creating-a-webrtc-data-channel/</link>
+      <pubDate>Tue, 19 Apr 2016 15:06:08 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/creating-a-webrtc-data-channel/</guid>
+      <description>I was recently learning about browser-based game development and was wondering about multiplayer games. WebSockets are super easy to work with but are they any good for games? The answer is yes and no. If you make a turn-based thing that doesn&amp;rsquo;t require up to the millisecond updates then WebSockets are the way to go, but for any fast-paced games they&amp;rsquo;re just not up to scratch.
+WebSockets are built on TCP, a reliable messaging protocol that ensures all data arrives and that it arrives in order.</description>
+    </item>
+    
+    <item>
+      <title>Bundling React with Webpack</title>
+      <link>https://nicklanng.github.io/post/bundling-react-with-webpack/</link>
+      <pubDate>Sun, 31 Jan 2016 21:37:21 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/bundling-react-with-webpack/</guid>
+      <description>A common complaint of the JavaScript ecosystem is the incredible rate of change.
+ &amp;ldquo;Why bother learning any JavaScript frameworks when they&amp;rsquo;ll just be defunct by next week?&amp;rdquo; - Tommy Developer
+ Tommy is kinda right. Every week there&amp;rsquo;s a new popular Github project, and now some JavaScript frameworks have even started to deprecate themselves with a new release. I believe that you can mitigate this problem, though, by choosing a framework or library that embraces a larger architectural movement.</description>
+    </item>
+    
+    <item>
+      <title>Array.prototype.reduce - The Daddy of JavaScript Array Manipulation</title>
+      <link>https://nicklanng.github.io/post/array-reduce-the-daddy-of-array-manipulation/</link>
+      <pubDate>Sat, 09 Jan 2016 17:58:50 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/array-reduce-the-daddy-of-array-manipulation/</guid>
+      <description>Shout out to mpjme&amp;rsquo;s YouTube channel that inspired this post - see the video here: https://www.youtube.com/watch?v=Wl98eZpkp-c
+What is Array.prototype.reduce? Array.prototype.reduce is a function on the Array prototype in JavaScript. Its purpose is to do some sort of operation on each element in an array and then return a result of some type.
+arr.reduce(callback[, initialValue])  The initialValue is optional. It is often things like 0, [] or {} but it can be whatever you like.</description>
+    </item>
+    
+    <item>
+      <title>Basic Javascript Patterns</title>
+      <link>https://nicklanng.github.io/post/basic-javascript-patterns/</link>
+      <pubDate>Fri, 13 Nov 2015 16:12:42 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/basic-javascript-patterns/</guid>
+      <description>Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.
+Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&amp;rsquo;re unsure about how to write a Javascript module.
+The module.exports property and the require function are found in either Node.</description>
+    </item>
+    
+    <item>
+      <title>Data Access Patterns</title>
+      <link>https://nicklanng.github.io/post/data-access-patterns/</link>
+      <pubDate>Thu, 24 Sep 2015 16:01:36 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/data-access-patterns/</guid>
+      <description>I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.
+ Repositories Query Objects Active Records  This code is written using Dapper and AutoMapper. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&amp;rsquo;t have to do this but it keeps the examples concise.</description>
+    </item>
+    
+    <item>
+      <title>MongoDB Driver with F#</title>
+      <link>https://nicklanng.github.io/post/mongodb-driver-with-f/</link>
+      <pubDate>Fri, 17 Jul 2015 12:56:56 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/mongodb-driver-with-f/</guid>
+      <description>I had a bit of difficulty today using MongoDB in F#. This is just simple explanation of my &amp;lsquo;Get all&amp;rsquo; function for posterity.
+let getAllShips (database:IMongoDatabase) = let collection = database.GetCollection&amp;lt;BsonDocument&amp;gt; &amp;#34;ships&amp;#34; let wildcard = FilterDefinition&amp;lt;BsonDocument&amp;gt;.op_Implicit(&amp;#34;{}&amp;#34;) collection.Find(wildcard).ToListAsync() |&amp;gt; Async.AwaitTask |&amp;gt; Async.RunSynchronously |&amp;gt; Seq.map mapDocumentToShip |&amp;gt; List.ofSeq Let&amp;rsquo;s go through this code line by line.
+let getAllShips (database:IMongoDatabase) = In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here.</description>
+    </item>
+    
+    <item>
+      <title>Coffeescript - Javascript Made Pretty</title>
+      <link>https://nicklanng.github.io/post/coffeescript-javascript-made-pretty/</link>
+      <pubDate>Sun, 14 Jun 2015 14:57:49 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/coffeescript-javascript-made-pretty/</guid>
+      <description>I&amp;rsquo;ve been writing a lot of Coffeescript lately. For a long time I avoided it, it looked all weird and scary but, once I finally bit the bullet, I realised its actually a rather pretty language.
+Below I&amp;rsquo;ve highlighted some of my favourite parts of Coffeescript but it is in no way a complete guide. To learn more about Coffeescript, check out the excellent homepage at http://coffeescript.org/. You will find a detailed list of features, along with their Javascript alternatives, and also a neat sandbox for trying out the language and immediately seeing the output Javascript.</description>
+    </item>
+    
+  </channel>
+</rss>

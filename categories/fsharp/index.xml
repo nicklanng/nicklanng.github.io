@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fsharp on i do web stuff</title>
+    <link>https://nicklanng.github.io/categories/fsharp/</link>
+    <description>Recent content in Fsharp on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Fri, 17 Jul 2015 12:56:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://nicklanng.github.io/categories/fsharp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MongoDB Driver with F#</title>
+      <link>https://nicklanng.github.io/post/mongodb-driver-with-f/</link>
+      <pubDate>Fri, 17 Jul 2015 12:56:56 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/mongodb-driver-with-f/</guid>
+      <description>I had a bit of difficulty today using MongoDB in F#. This is just simple explanation of my &amp;lsquo;Get all&amp;rsquo; function for posterity.
+let getAllShips (database:IMongoDatabase) = let collection = database.GetCollection&amp;lt;BsonDocument&amp;gt; &amp;#34;ships&amp;#34; let wildcard = FilterDefinition&amp;lt;BsonDocument&amp;gt;.op_Implicit(&amp;#34;{}&amp;#34;) collection.Find(wildcard).ToListAsync() |&amp;gt; Async.AwaitTask |&amp;gt; Async.RunSynchronously |&amp;gt; Seq.map mapDocumentToShip |&amp;gt; List.ofSeq Let&amp;rsquo;s go through this code line by line.
+let getAllShips (database:IMongoDatabase) = In the new MongoDB Driver 2.x, MongoDatabase is exposed as IMongoDatabase. As everything is explicit in F# we have to use the interface here.</description>
+    </item>
+    
+  </channel>
+</rss>

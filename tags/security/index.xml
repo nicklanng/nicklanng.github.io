@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security on i do web stuff</title>
+    <link>https://nicklanng.github.io/tags/security/</link>
+    <description>Recent content in Security on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Mon, 23 Oct 2017 07:40:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://nicklanng.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting to Know Vault</title>
+      <link>https://nicklanng.github.io/post/getting-to-know-vault/</link>
+      <pubDate>Mon, 23 Oct 2017 07:40:15 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/getting-to-know-vault/</guid>
+      <description>#What is Vault?
+Vault is a secrets management tool from the excellent people at Hashicorp. A constantly evolving solution, based on academia, that always passes security audits with flying colors. It feels like using an encrypted Redis or Memcached.
+From the website - https://www.vaultproject.io/ &amp;gt; Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing.</description>
+    </item>
+    
+  </channel>
+</rss>

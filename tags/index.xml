@@ -7,9 +7,154 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Fri, 13 Nov 2015 16:12:42 +0000</lastBuildDate>
     
 	<atom:link href="https://nicklanng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Architecture</title>
+      <link>https://nicklanng.github.io/tags/architecture/</link>
+      <pubDate>Fri, 13 Nov 2015 16:12:42 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ci</title>
+      <link>https://nicklanng.github.io/tags/ci/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/ci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code</title>
+      <link>https://nicklanng.github.io/tags/code/</link>
+      <pubDate>Tue, 19 Apr 2016 15:06:08 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Coffeescript</title>
+      <link>https://nicklanng.github.io/tags/coffeescript/</link>
+      <pubDate>Fri, 13 Nov 2015 16:12:42 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/coffeescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Csharp</title>
+      <link>https://nicklanng.github.io/tags/csharp/</link>
+      <pubDate>Thu, 24 Sep 2015 16:01:36 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/csharp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://nicklanng.github.io/tags/docker/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dockerhub</title>
+      <link>https://nicklanng.github.io/tags/dockerhub/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/dockerhub/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fsharp</title>
+      <link>https://nicklanng.github.io/tags/fsharp/</link>
+      <pubDate>Fri, 17 Jul 2015 12:56:56 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/fsharp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://nicklanng.github.io/tags/github/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hashicorp</title>
+      <link>https://nicklanng.github.io/tags/hashicorp/</link>
+      <pubDate>Mon, 23 Oct 2017 07:40:15 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/hashicorp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://nicklanng.github.io/tags/javascript/</link>
+      <pubDate>Tue, 19 Apr 2016 15:06:08 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mongodb</title>
+      <link>https://nicklanng.github.io/tags/mongodb/</link>
+      <pubDate>Fri, 17 Jul 2015 12:56:56 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Node</title>
+      <link>https://nicklanng.github.io/tags/node/</link>
+      <pubDate>Tue, 19 Apr 2016 15:06:08 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/node/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://nicklanng.github.io/tags/security/</link>
+      <pubDate>Mon, 23 Oct 2017 07:40:15 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Travis</title>
+      <link>https://nicklanng.github.io/tags/travis/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/travis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vault</title>
+      <link>https://nicklanng.github.io/tags/vault/</link>
+      <pubDate>Mon, 23 Oct 2017 07:40:15 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/tags/vault/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

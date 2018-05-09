@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ci on i do web stuff</title>
+    <link>https://nicklanng.github.io/categories/ci/</link>
+    <description>Recent content in Ci on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Sep 2017 21:16:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://nicklanng.github.io/categories/ci/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Open-source Software Pipeline</title>
+      <link>https://nicklanng.github.io/post/opensource-software-pipeline/</link>
+      <pubDate>Sun, 10 Sep 2017 21:16:00 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/opensource-software-pipeline/</guid>
+      <description>The following is a demonstration of the build pipeline I use for my personal projects.
+Creating a repository To start, I create a repository on Github. This whole process supports a ton of different languages, but I&amp;rsquo;m going to write a simple console app in Go.
+Checkout repository to local file system Go has a convenient command for checking out the repository and automatically putting it into the correct path in my GOPATH.</description>
+    </item>
+    
+  </channel>
+</rss>

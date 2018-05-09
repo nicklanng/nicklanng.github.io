@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/opensource-software-pipeline/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Open-source Software Pipeline" />
+<meta property="og:description" content="The following is a demonstration of the build pipeline I use for my personal projects.
+Creating a repository To start, I create a repository on Github. This whole process supports a ton of different languages, but I&rsquo;m going to write a simple console app in Go.
+Checkout repository to local file system Go has a convenient command for checking out the repository and automatically putting it into the correct path in my GOPATH." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/opensource-software-pipeline/" />
+
+
+
+<meta property="article:published_time" content="2017-09-10T21:16:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-09-10T21:16:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Open-source Software Pipeline"/>
+<meta name="twitter:description" content="The following is a demonstration of the build pipeline I use for my personal projects.
+Creating a repository To start, I create a repository on Github. This whole process supports a ton of different languages, but I&rsquo;m going to write a simple console app in Go.
+Checkout repository to local file system Go has a convenient command for checking out the repository and automatically putting it into the correct path in my GOPATH."/>
+
+
+
+<meta itemprop="name" content="Open-source Software Pipeline">
+<meta itemprop="description" content="The following is a demonstration of the build pipeline I use for my personal projects.
+Creating a repository To start, I create a repository on Github. This whole process supports a ton of different languages, but I&rsquo;m going to write a simple console app in Go.
+Checkout repository to local file system Go has a convenient command for checking out the repository and automatically putting it into the correct path in my GOPATH.">
+
+
+<meta itemprop="datePublished" content="2017-09-10T21:16:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-09-10T21:16:00&#43;00:00" />
+<meta itemprop="wordCount" content="1383">
+
+
+
+<meta itemprop="keywords" content="travis,ci,github,docker,dockerhub," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Open-source Software Pipeline 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Open-source Software Pipeline </h1>
+    <div class="content"> 
+
+<p>The following is a demonstration of the build pipeline I use for my personal projects.</p>
+
+<h1 id="creating-a-repository">Creating a repository</h1>
+
+<p>To start, I create a repository on <a href="https://github.com">Github</a>. This whole process supports a ton of different languages, but I&rsquo;m going to write a simple console app in Go.</p>
+
+<h1 id="checkout-repository-to-local-file-system">Checkout repository to local file system</h1>
+
+<p>Go has a convenient command for checking out the repository and automatically putting it into the correct path in my <code>GOPATH</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go get github.com/nicklanng/pipeline-blog
+
+package github.com/nicklanng/pipeline-blog: no buildable Go source files in /Users/nicholas.lanng/work/go/src/github.com/nicklanng/pipeline-blog</code></pre></div>
+
+<h1 id="write-some-code">Write some code</h1>
+
+<p>I create my <code>main.go</code> in the root of the repository, this app will just print a hello to the console.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, blog readers!&#34;</span>)
+}</code></pre></div>
+
+<h1 id="set-up-ci-system">Set up CI system</h1>
+
+<p>Next, I will set up my build for this project. I like to use <a href="https://travis-ci.org/">Travis CI</a> due to its great integration with Github and superb community.</p>
+
+<p>I use the Travis CLI Ruby gem, as it provides handy functions and shortcuts. It requires at least Ruby version 1.9.3 (2.0.0 recommended).</p>
+
+<p>##First time configuration only
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ruby -v
+
+ruby <span style="color:#ae81ff">2</span>.4.1p111 <span style="color:#f92672">(</span><span style="color:#ae81ff">2017</span>-03-22 revision <span style="color:#ae81ff">58053</span><span style="color:#f92672">)</span> <span style="color:#f92672">[</span>x86_64-darwin16<span style="color:#f92672">]</span></code></pre></div></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gem install travis -v <span style="color:#ae81ff">1</span>.8.8 --no-rdoc --no-ri
+
+Successfully installed travis-1.8.8
+<span style="color:#ae81ff">1</span> gem installed</code></pre></div>
+
+<p>You need to login to Travis with your Github credentials. <strong>The credentials aren&rsquo;t sent to Travis, but instead to Github and an authorization token is then sent on to Travis.</strong></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ travis login
+
+We need your GitHub login to identify you.
+This information will not be sent to Travis CI, only to api.github.com.
+The password will not be displayed.
+
+Try running with --github-token or --auto <span style="color:#66d9ef">if</span> you don<span style="color:#960050;background-color:#1e0010">&#39;</span>t want to enter your password anyway.
+
+Username: nicklanng
+Password <span style="color:#66d9ef">for</span> nicklanng: ********************
+Successfully logged in as nicklanng!</code></pre></div>
+
+<p>##The only command you need to run each time</p>
+
+<p>I navigate to the respository&rsquo;s local folder and run the following. A series of questions are asked of me.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ travis init
+
+Detected repository as nicklanng/pipeline-blog, is this correct? |yes|
+Main programming language used: |Ruby| Go
+.travis.yml file created!
+nicklanng/pipeline-blog: enabled :<span style="color:#f92672">)</span></code></pre></div></p>
+
+<p>This command has now created the Travis CI configuration file in my repository and also told Travis CI to watch for changes and build on every push.</p>
+
+<p>I give the <code>.travis.yml</code> file a quick check, in this case I want to target different version of Go.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: go
+go:
+- <span style="color:#e6db74">&#39;1.9&#39;</span></code></pre></div>
+
+<h1 id="place-ci-build-status-on-repo">Place CI build status on Repo</h1>
+
+<p>Travis CI provides an image that will automatically update to show the current build status. I put this &lsquo;badge&rsquo; into my <code>README.md</code> file, so that I can see the status of the build directly from the repository. It also acts as a link to the Travis CI page for the repository.</p>
+
+<p>The Travis CI URL has the same slug as the Github repo, so I navigate to <a href="https://travis-ci.org/nicklanng/pipeline-blog">https://travis-ci.org/nicklanng/pipeline-blog</a>.</p>
+
+<p>I click on the badge that says &lsquo;<strong>build | unknown</strong>&rsquo;, select <strong>Markdown</strong> in the second drop-down and copy and paste the supplied code into my <code>README.md</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"># pipeline-blog
+Repository used for a demonstration on my blog<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>[<span style="color:#f92672">![Build Status</span>](<span style="color:#a6e22e">https://travis-ci.org/nicklanng/pipeline-blog.svg?branch=master</span>)](https://travis-ci.org/nicklanng/pipeline-blog)</code></pre></div>
+
+<h1 id="push-to-github-and-trigger-a-build">Push to Github and trigger a build</h1>
+
+<p>Its time to push all of this to Github and see my first build!</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git add .
+$ git status
+On branch master
+Your branch is up-to-date with <span style="color:#e6db74">&#39;origin/master&#39;</span>.
+
+Changes to be committed:
+  <span style="color:#f92672">(</span>use <span style="color:#e6db74">&#34;git reset HEAD &lt;file&gt;...&#34;</span> to unstage<span style="color:#f92672">)</span>
+
+	new file:   .travis.yml
+	modified:   README.md
+	new file:   main.go
+
+$ git commit . -m <span style="color:#e6db74">&#34;Added Travis CI integration&#34;</span>
+<span style="color:#f92672">[</span>master 3b28bcf<span style="color:#f92672">]</span> Added Travis CI integration
+ <span style="color:#ae81ff">3</span> files changed, <span style="color:#ae81ff">13</span> insertions<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>
+ create mode <span style="color:#ae81ff">100644</span> .travis.yml
+ create mode <span style="color:#ae81ff">100644</span> main.go
+
+$ git push
+Counting objects: <span style="color:#ae81ff">5</span>, <span style="color:#66d9ef">done</span>.
+Delta compression using up to <span style="color:#ae81ff">4</span> threads.
+Compressing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span>/4<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Writing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">5</span>/5<span style="color:#f92672">)</span>, <span style="color:#ae81ff">645</span> bytes | <span style="color:#ae81ff">645</span>.00 KiB/s, <span style="color:#66d9ef">done</span>.
+Total <span style="color:#ae81ff">5</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+To https://github.com/nicklanng/pipeline-blog
+   9024a72..3b28bcf  master -&gt; master</code></pre></div>
+
+<p>Go to the repository at <a href="https://github.com/nicklanng/pipeline-blog">https://github.com/nicklanng/pipeline-blog</a> and we can see the badge is saying the build passed!</p>
+
+<p><img src="https://nicklanng.github.io/content/images/2017/09/Screen-Shot-2017-09-10-at-20.40.36.png" alt="" /></p>
+
+<p>Click on the badge and we are taken to the Travis CI page, we can see that build was run against Go 1.9.</p>
+
+<p><img src="https://nicklanng.github.io/content/images/2017/09/builds.png" alt="" /></p>
+
+<h1 id="create-a-repository-on-dockerhub">Create a repository on Dockerhub</h1>
+
+<p>This step requires an account on <a href="https://hub.docker.com">DockerHub</a>.</p>
+
+<p><strong>Dockerhub requires me to create an empty repository on the website first, before pushing to it from Travis.</strong></p>
+
+<p><img src="https://nicklanng.github.io/content/images/2017/09/Screen-Shot-2017-09-10-at-21.15.42.png" alt="" /></p>
+
+<h1 id="deploy-a-dev-build-to-dockerhub">Deploy a dev build to Dockerhub</h1>
+
+<p>I like to package my projects up in Docker containers, so next I will set up a docker build and push to Dockerhub on every commit. This image will be tagged with <code>dev</code> as it is the not stable enough to be a reliable release.</p>
+
+<p>Create a <code>Dockerfile</code> in the project root.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span><span style="color:#e6db74"> ./bin/pipeline-blog-linux-amd64 /pipeline-blog</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span><span style="color:#e6db74"> [&#34;/pipeline-blog&#34;]</span></code></pre></div></p>
+
+<p>Open up your <code>.travis.yml</code> and add the following.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: go
+
+go:
+  - <span style="color:#e6db74">&#39;1.9&#39;</span>
+
+sudo: required
+services: docker
+
+script:
+  - GOARCH=amd64 GOOS=linux go build -o bin/pipeline-blog main.go
+  - docker build -t $TRAVIS_REPO_SLUG .
+
+after_success:
+  - if [ <span style="color:#e6db74">&#34;$TRAVIS_BRANCH&#34;</span> == <span style="color:#e6db74">&#34;master&#34;</span> ] <span style="color:#75715e">&amp;&amp;</span> [ <span style="color:#e6db74">&#34;$TRAVIS_PULL_REQUEST&#34;</span> == <span style="color:#e6db74">&#34;false&#34;</span> ]; then
+    docker login -u=<span style="color:#e6db74">&#34;$DOCKER_USERNAME&#34;</span> -p=<span style="color:#e6db74">&#34;$DOCKER_PASSWORD&#34;</span>;
+    docker tag $TRAVIS_REPO_SLUG $TRAVIS_REPO_SLUG:dev;
+    docker push $TRAVIS_REPO_SLUG:dev;
+    fi</code></pre></div>
+
+<p>There are a few environmental variables in this file.</p>
+
+<pre><code>$TRAVIS_BRANCH : the name of the branch that is being built
+$TRAVIS_PULL_REQUEST : true if this build a testing a PR before merging
+$TRAVIS_REPO_SLUG : the repo slug, 'nicklanng/pipeline-demo'
+
+$DOCKER_USERNAME &amp;&amp; DOCKER_PASSWORD : configured on the Travis website as explained in the next section
+</code></pre>
+
+<p><strong>I don&rsquo;t want to put my Dockerhub username and password in my repository, that&rsquo;s asking for trouble!</strong> Travis provides the ability to create environmental variables for builds, and has the option to obscure them from the build output!</p>
+
+<p>Now I check in my new file and changes and check for a build on Dockerhub!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git add .
+
+$ git status
+On branch master
+Your branch is up-to-date with <span style="color:#e6db74">&#39;origin/master&#39;</span>.
+
+Changes to be committed:
+  <span style="color:#f92672">(</span>use <span style="color:#e6db74">&#34;git reset HEAD &lt;file&gt;...&#34;</span> to unstage<span style="color:#f92672">)</span>
+
+	modified:   .travis.yml
+	new file:   Dockerfile
+
+$ git commit . -m <span style="color:#e6db74">&#34;Push to docker on successful dev build&#34;</span>
+<span style="color:#f92672">[</span>master 1eb89a0<span style="color:#f92672">]</span> Push to docker on successful dev build
+ <span style="color:#ae81ff">2</span> files changed, <span style="color:#ae81ff">22</span> insertions<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>, <span style="color:#ae81ff">2</span> deletions<span style="color:#f92672">(</span>-<span style="color:#f92672">)</span>
+ create mode <span style="color:#ae81ff">100644</span> Dockerfile
+
+$ git push
+Counting objects: <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">done</span>.
+Delta compression using up to <span style="color:#ae81ff">4</span> threads.
+Compressing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span>/4<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Writing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span>/4<span style="color:#f92672">)</span>, <span style="color:#ae81ff">682</span> bytes | <span style="color:#ae81ff">682</span>.00 KiB/s, <span style="color:#66d9ef">done</span>.
+Total <span style="color:#ae81ff">4</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+remote: Resolving deltas: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span>/1<span style="color:#f92672">)</span>, completed with <span style="color:#ae81ff">1</span> local object.
+To https://github.com/nicklanng/pipeline-blog
+   3b28bcf..1eb89a0  master -&gt; master</code></pre></div></p>
+
+<p>Once the build has finished, we can pull down the Docker image and run it!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker pull nicklanng/pipeline-blog:dev
+dev: Pulling from nicklanng/pipeline-blog
+7bfe62a404bb: Pull complete
+Digest: sha256:a15aa2e88f3e9ad4adef9023a3bc095f840349dc1c131085e8af5f7d8fec6bde
+Status: Downloaded newer image <span style="color:#66d9ef">for</span> nicklanng/pipeline-blog:dev
+
+$ docker run nicklanng/pipeline-blog:dev
+Hello, blog readers!</code></pre></div></p>
+
+<p>Official documentation: <a href="https://docs.travis-ci.com/user/docker/">https://docs.travis-ci.com/user/docker/</a></p>
+
+<h1 id="deploying-a-stable-version">Deploying a stable version</h1>
+
+<p>Github has a releases feature, that allows you to create a tag in the version history and release notes. We can use feature along with Travis to deploy tagged versions to Dockerhub.</p>
+
+<p>Add the following to the end of the <code>.travis.yml</code> file.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  - if [ $TRAVIS_TAG ]; then
+    docker login -u=<span style="color:#e6db74">&#34;$DOCKER_USERNAME&#34;</span> -p=<span style="color:#e6db74">&#34;$DOCKER_PASSWORD&#34;</span>;
+    docker push $TRAVIS_REPO_SLUG;
+    docker tag $TRAVIS_REPO_SLUG $TRAVIS_REPO_SLUG:$TRAVIS_TAG;
+    docker push $TRAVIS_REPO_SLUG:$TRAVIS_TAG;
+    fi</code></pre></div></p>
+
+<p>When we create a tag, Travis has access to it through the<code>$TRAVIS_TAG</code> variable. In this case, we want to push with the tag <code>:latest</code> and the tag, eg <code>:0.1.0</code>.</p>
+
+<p>Push this change to the repository.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git add .
+
+$ git commit . -m <span style="color:#e6db74">&#34;Push version tags and latest tag to Dockerhub on releases&#34;</span>
+<span style="color:#f92672">[</span>master 8b787c0<span style="color:#f92672">]</span> Push version tags and latest tag to Dockerhub on releases
+ <span style="color:#ae81ff">1</span> file changed, <span style="color:#ae81ff">6</span> insertions<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>
+
+$ git push
+Counting objects: <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">done</span>.
+Delta compression using up to <span style="color:#ae81ff">4</span> threads.
+Compressing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">3</span>/3<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Writing objects: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">3</span>/3<span style="color:#f92672">)</span>, <span style="color:#ae81ff">376</span> bytes | <span style="color:#ae81ff">376</span>.00 KiB/s, <span style="color:#66d9ef">done</span>.
+Total <span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">2</span><span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+remote: Resolving deltas: <span style="color:#ae81ff">100</span>% <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span>/2<span style="color:#f92672">)</span>, completed with <span style="color:#ae81ff">2</span> local objects.
+To https://github.com/nicklanng/pipeline-blog
+   525fe82..8b787c0  master -&gt; master</code></pre></div>
+
+<p>Next, let&rsquo;s create a release in Github and check the tags in Dockerhub!
+Go to <a href="https://github.com/nicklanng/pipeline-blog/releases">https://github.com/nicklanng/pipeline-blog/releases</a> and hit &lsquo;Create a new release&rsquo;.</p>
+
+<p><img src="https://nicklanng.github.io/content/images/2017/09/Screen-Shot-2017-09-10-at-22.02.35.png" alt="" /></p>
+
+<p>This actually creates a new branch, found not in the standard Branches section in Github, but in the Tags sections next to it. We can see the new branch building on Travis CI.</p>
+
+<p><img src="https://nicklanng.github.io/content/images/2017/09/Screen-Shot-2017-09-10-at-22.03.18.png" alt="" /></p>
+
+<p>In Dockerhub, we can now see the <code>:latest</code>, <code>:dev</code> and <code>:0.1.0</code> tabs on the image&rsquo;s page!</p>
+
+<p>I haven&rsquo;t spoken about testing or deployment of the software, but I&rsquo;m hoping that with your current knowledge of your language of choice and whatever deployment mechanism you use - you might now have enough knowledge to get cracking.</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/travis">#travis</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/ci">#ci</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/github">#github</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/docker">#docker</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/dockerhub">#dockerhub</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Sep 10, 2017 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

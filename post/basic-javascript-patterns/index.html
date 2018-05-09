@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/basic-javascript-patterns/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Basic Javascript Patterns" />
+<meta property="og:description" content="Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.
+Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&rsquo;re unsure about how to write a Javascript module.
+The module.exports property and the require function are found in either Node." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/basic-javascript-patterns/" />
+
+
+
+<meta property="article:published_time" content="2015-11-13T16:12:42&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-11-13T16:12:42&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basic Javascript Patterns"/>
+<meta name="twitter:description" content="Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.
+Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&rsquo;re unsure about how to write a Javascript module.
+The module.exports property and the require function are found in either Node."/>
+
+
+
+<meta itemprop="name" content="Basic Javascript Patterns">
+<meta itemprop="description" content="Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.
+Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&rsquo;re unsure about how to write a Javascript module.
+The module.exports property and the require function are found in either Node.">
+
+
+<meta itemprop="datePublished" content="2015-11-13T16:12:42&#43;00:00" />
+<meta itemprop="dateModified" content="2015-11-13T16:12:42&#43;00:00" />
+<meta itemprop="wordCount" content="781">
+
+
+
+<meta itemprop="keywords" content="javascript,code,architecture,coffeescript," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Basic Javascript Patterns 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Basic Javascript Patterns </h1>
+    <div class="content"> 
+
+<p>Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.</p>
+
+<p>Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&rsquo;re unsure about how to write a Javascript module.</p>
+
+<p>The <strong>module.exports</strong> property and the <strong>require</strong> function are found in either <a href="https://nodejs.org">Node.js</a> or <a href="http://browserify.org/">Browserify</a>, I will follow up with a separate post on how to use Browserify to organise your client-side scripts.</p>
+
+<h2 id="class-pattern">Class Pattern</h2>
+
+<p>Javascript isn&rsquo;t a class-based language, its a prototypal language. However, it can behave in similar ways - just try to remember that this isn&rsquo;t C#, it has its own behavior. What you may consider as WTFs are probably in line with the language specification.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span>() {
+
+  <span style="color:#75715e">// this is our object prototype and constructor
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Hello</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+  }
+
+  <span style="color:#75715e">// this is a &#34;static&#34; function
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;fuzzed up, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#75715e">// this is an instance function
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;beyond all repair, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#75715e">// this is a private function
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">snafu</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;situation normal, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#75715e">// return the object prototype from the closure
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Hello</span>;
+
+})();
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Hello</span>;
+
+
+<span style="color:#75715e">// Usage in another module
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./Hello&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Hello</span>(<span style="color:#e6db74">&#39;Gunty McSquintlock&#39;</span>);
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// &#34;fuzzed up, Hello&#34; &lt;- That&#39;s the name of the factory function!
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">bar</span>()); <span style="color:#75715e">// &#34;beyond all repair, Gunty McSquintlock&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// error - not on the instance
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">snafu</span>()); <span style="color:#75715e">// error - private
+</span><span style="color:#75715e"></span></code></pre></div></p>
+
+<h2 id="module-pattern">Module Pattern</h2>
+
+<p>In this pattern, private functions are declared inside the factory function and public functions are returned inside an object literal.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// this is our factory
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">name</span>) {
+
+  <span style="color:#75715e">// this is a private function
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">snafu</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;situation normal, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#75715e">// this is an instance function
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">bar</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;beyond all repair, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>;
+    }
+  };
+};
+
+<span style="color:#75715e">// this is a &#34;static&#34; function
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;fuzzed up, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+};
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Hello</span>;
+
+<span style="color:#75715e">// Usage in another module
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./Hello&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Hello</span>(<span style="color:#e6db74">&#39;Gunty McSquintlock&#39;</span>);
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// &#34;fuzzed up, &#34; &lt;- Not inside a factory function, so there isn&#39;t a name!
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">bar</span>()); <span style="color:#75715e">// &#34;beyond all repair, Gunty McSquintlock&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// error - not on the instance
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">snafu</span>()); <span style="color:#75715e">// error - private
+</span><span style="color:#75715e"></span></code></pre></div></p>
+
+<h2 id="revealing-module-pattern">Revealing Module Pattern</h2>
+
+<p>This is similar to the Module Pattern, except every instance function starts life as a private function and then we decide which ones to reveal to the public return object.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// this is our factory
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">name</span>) {
+
+  <span style="color:#75715e">// this is a private function
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">snafu</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;situation normal, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#75715e">// this *will* be an instance function, but looks like a private now
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;beyond all repair, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>;
+  };
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#75715e">// reveal the instance function
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">bar</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bar</span>
+  };
+};
+
+<span style="color:#75715e">// this is a &#34;static&#34; function
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;fuzzed up, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+};
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Hello</span>;
+
+<span style="color:#75715e">// Usage in another module
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./Hello&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Hello</span>(<span style="color:#e6db74">&#39;Gunty McSquintlock&#39;</span>);
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// &#34;fuzzed up, &#34; &lt;- Not inside a factory function, so there isn&#39;t a name!
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">bar</span>()); <span style="color:#75715e">// &#34;beyond all repair, Gunty McSquintlock&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">foo</span>()); <span style="color:#75715e">// error - not on the instance
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">snafu</span>()); <span style="color:#75715e">// error - private
+</span><span style="color:#75715e"></span></code></pre></div></p>
+
+<hr />
+
+<h1 id="the-coffeescript-version">The Coffeescript Version</h1>
+
+<p>I like Coffeescript, here are the Hello.js files in Coffeescript.</p>
+
+<h2 id="class-pattern-1">Class Pattern</h2>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#75715e"># this is our class
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span>
+  <span style="color:#75715e"># constructor
+</span><span style="color:#75715e"></span>  constructor: <span style="color:#a6e22e">(@name) -&gt;</span>
+
+  <span style="color:#75715e"># &#34;static&#34; function
+</span><span style="color:#75715e"></span>  @foo: <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;fuzzed up, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">@name</span>
+
+  <span style="color:#75715e"># instance function
+</span><span style="color:#75715e"></span>  bar: <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;beyond all repair, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">@name</span>
+
+  <span style="color:#75715e"># private function
+</span><span style="color:#75715e"></span>  snafu = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;situation normal, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">@name</span>
+
+module.exports = <span style="color:#a6e22e">Hello</span></code></pre></div></p>
+
+<h2 id="module-pattern-1">Module Pattern</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#75715e">#  this is our factory
+</span><span style="color:#75715e"></span>Hello = <span style="color:#a6e22e">(name) -&gt;</span>
+  <span style="color:#75715e"># this is a private function
+</span><span style="color:#75715e"></span>  snafu = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;situation normal, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#75715e"># this is an instance function
+</span><span style="color:#75715e"></span>    bar: <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;beyond all repair, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>
+  }
+
+<span style="color:#75715e"># this is a &#34;static&#34; function
+</span><span style="color:#75715e"></span>Hello.foo = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;fuzzed up, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">@name</span>
+
+module.exports = <span style="color:#a6e22e">Hello</span></code></pre></div>
+
+<h2 id="revealing-module-pattern-1">Revealing Module Pattern</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#75715e"># this is our factory
+</span><span style="color:#75715e"></span>Hello = <span style="color:#a6e22e">(name) -&gt;</span>
+  <span style="color:#75715e"># this is a private function
+</span><span style="color:#75715e"></span>  snafu = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;situation normal, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>
+
+  <span style="color:#75715e"># this *will* be an instance function, but looks like a private now
+</span><span style="color:#75715e"></span>  bar = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;beyond all repair, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#75715e"># reveal the instance function
+</span><span style="color:#75715e"></span>    bar: <span style="color:#a6e22e">bar</span>
+  }
+
+<span style="color:#75715e"># this is a &#34;static&#34; function
+</span><span style="color:#75715e"></span>Hello.foo = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#39;fuzzed up, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">@name</span>
+
+module.exports = <span style="color:#a6e22e">Hello</span></code></pre></div>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/javascript">#javascript</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/architecture">#architecture</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/coffeescript">#coffeescript</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Nov 13, 2015 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

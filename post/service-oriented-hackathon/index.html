@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/service-oriented-hackathon/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Service-oriented Hackathon" />
+<meta property="og:description" content="Last week my company held its quarterly hackathon event. A hackathon is a time for developers to try out some of those things they think would be a great idea but which may be difficult to get on to the official roadmap. As all of our products live in the cloud, my team&#39;s project was to spike a distributed service-oriented architecture (or SOA), similar to the way Netflix operates." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/service-oriented-hackathon/" />
+
+
+
+<meta property="article:published_time" content="2014-02-11T23:27:22&#43;00:00"/>
+
+<meta property="article:modified_time" content="2014-02-11T23:27:22&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Service-oriented Hackathon"/>
+<meta name="twitter:description" content="Last week my company held its quarterly hackathon event. A hackathon is a time for developers to try out some of those things they think would be a great idea but which may be difficult to get on to the official roadmap. As all of our products live in the cloud, my team&#39;s project was to spike a distributed service-oriented architecture (or SOA), similar to the way Netflix operates."/>
+
+
+
+<meta itemprop="name" content="Service-oriented Hackathon">
+<meta itemprop="description" content="Last week my company held its quarterly hackathon event. A hackathon is a time for developers to try out some of those things they think would be a great idea but which may be difficult to get on to the official roadmap. As all of our products live in the cloud, my team&#39;s project was to spike a distributed service-oriented architecture (or SOA), similar to the way Netflix operates.">
+
+
+<meta itemprop="datePublished" content="2014-02-11T23:27:22&#43;00:00" />
+<meta itemprop="dateModified" content="2014-02-11T23:27:22&#43;00:00" />
+<meta itemprop="wordCount" content="1603">
+
+
+
+<meta itemprop="keywords" content="architecture," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Service-oriented Hackathon 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Service-oriented Hackathon </h1>
+    <div class="content"> 
+
+<p class="intro">Last week my company held its quarterly hackathon event. A hackathon is a time for developers to try out some of those things they think would be a great idea but which may be difficult to get on to the official roadmap. As all of our products live in the cloud, my team's project was to spike a distributed service-oriented architecture (or SOA), similar to the way Netflix operates.</p>
+
+<h2 id="why-use-a-service-oriented-architecture">Why use a service-oriented architecture?</h2>
+
+<p>This past year, my team have been working on a greenfield system which represents a brand new product line for my company. We&rsquo;ve built a nicely structured ASP.Net MVC application, but as it all gets compiled into the same distributable we&rsquo;ve found a tendency for the separate sections of the site to become coupled - this has led to some pretty nasty refactor stories that always seem to take longer than we estimate.</p>
+
+<p>A small section of our application is asynchronous processing, we made sure to separate that out from the rest of the application and we coordinate the whole thing with a small bespoke queue system. We are keen to move to a more proven queue system and that got us thinking about how we might have designed the application if we had a decent queue system from the beginning. Would we have built such a coupled stack or could we instead have lots of services all with a single responsibility and some common interface between them. Refactoring would certainly be a lot easier if the heap of code was smaller and any potential system breaks due to massive overhauls could be restricted to a small subsystem of the application.</p>
+
+<p>I think that&rsquo;s really the thing that I find interesting about architecture. Principles that are normally used to inform code can often be used to inform system architectures. In this case, the Single Responsibility Principle. Separate components can be scaled, refactored and can break all independently from the rest of the system.</p>
+
+<p>My understanding of the history and arguments for service-oriented architectures is very limited but this is a subject I will endeavour to learn more about.</p>
+
+<h2 id="how-did-we-do-it">How did we do it?</h2>
+
+<p>We set ourselves a few constraints before we started our work.</p>
+
+<ul>
+<li><p>Everything must run on Linux. We&rsquo;re primarily a C# house but running Windows servers in the cloud can tend to limit tool support. We decided to try using <a href="http://www.mono-project.com/">Mono</a>, we had heard great things about how far the language had come and wanted to see for ourselves what it could do.</p></li>
+
+<li><p>The project must be built as if it were a real live system. We wanted to prove how quickly we could get a functional system up and running while still considering factors such as scalability and redundancy. We chose to use <a href="http://aws.amazon.com/">Amazon Web Services</a> to host the solution, from the team&rsquo;s small amount of experience with AWS it seemed to be a really powerful toolbox for creating cloud systems.</p></li>
+
+<li><p>Although we are all highly experienced in ASP.Net MVC, we decided to try a more lightweight framework to learn which features of MVC we actually need and use. Recently, we&rsquo;ve really started to question all of our framework choices; do we use them because they really are the best tool for the job or just because we are used to working with them? <a href="http://nancyfx.org/">Nancy</a> was the framework we chose to use because we liked it&rsquo;s simplicity and some of us have had good times with the project it was based on, <a href="http://www.sinatrarb.com/">Sinatra</a>.</p></li>
+
+<li><p>We wanted real-time features in our website so this led us to using websockets. We discussed a few websockets frameworks and the two final contenders were <a href="http://signalr.net/">SignalR</a> and <a href="http://socket.io/">Socket.io</a>. Both of them are really powerful frameworks but we decided to choose Socket.io, primarily because it was a simpler offering with less of a pre-built architecture. This would mean that a subsystem of our site would need to be built with Node.js but, since everything is distributed, this subsystem should be relatively standalone.</p></li>
+
+<li><p>The service should be pulled together with an event system, an example of this would be: a new telephony event is fired into the message queue, the event is then picked up by a service to store the persistent record and another service informs the user of the call. Using AWS would naturally lead us to use two of their offered services, Simple Queue Service and Simple Notification Service, but, wary of tying a solution too closely to AWS and wanting to dig a bit deeper into how a message queue fits together, we decided to go with <a href="https://www.rabbitmq.com/">RabbitMQ</a>, a very popular and widely used messaging system.</p></li>
+</ul>
+
+<h2 id="what-did-we-learn">What did we learn?</h2>
+
+<p>We built the solution in Visual Studio 2013 with all the tooling support (Resharper, NCrunch etc&hellip;) and made sure it ran on our local development machines. When we came to compile the system on Linux we expected to have to deal with a multitude of errors but there was nothing.</p>
+
+<p>It just worked.</p>
+
+<p>In Mono, <em>msbuild</em> is replaced with <em>xbuild</em>, all of your msbuild scripts will be supported by xbuild. You can also install Mono for windows which gives you the same tools you would use on Linux. You can even compile using Mono for Windows and the same executable will work on Linux. I am so impressed with how simple the whole thing was. We weren&rsquo;t using terribly complex language features and we built everything against .Net 4 client profile to be extra sure of compatibility, but I am certainly confident enough to suggest using Mono in our live systems.</p>
+
+<p>A message queue seems to be a great way to decouple your system&rsquo;s subsystems. After we had decided on the next event to support we found it very easy to split off into small teams to support the event in existing and new services. A lot of care and consideration has to be taken when defining your messaging language, as it has the ability to cause rewrites throughout your system (<em>or at least those subsystems which care about a particular message type</em>).</p>
+
+<p>Due to our subsystems being so small and self-contained they ended up only having a few small classes. The main benefits from this are ease of understanding the codebase for new developers and that you are only very thinly bound to any technology choices for that subsystem. We also had one subsystem fail during our demo but, as nothing else was relying on that subsystem and only a very small section of the site needed it, the rest of the site carried on functioning perfectly.</p>
+
+<p>Another thing we noticed was the ability to deploy subsystems individually. You have to be careful about running different versions of the site, specifically subsystems built against different version of the messaging contracts, but it does help when deploying manually and patching small parts of the site quickly.</p>
+
+<p>We found Nancy to be very easy to work with and fast to get up and running. The documentation on hosting Nancy with Nginx on Linux was perfect and I managed to set up the hosting in about 30 minutes. We didn&rsquo;t try to implement authentication or any other feature in our small demo so we still have a lot to learn about how feasible Nancy is to use in a live environment. One thing for sure is how quickly we&rsquo;ll be able to spike these concerns.</p>
+
+<p>Hosting the system on AWS was a great idea. I was blown away at how quickly we had a scalable, load-balanced system up and running and completely secure, too! The only two routes in to the entire system was through the HTTP load balancer and the websocket server. I am told that Amazon are currently working on load balancing websocket traffic so that should soon make the whole thing a lot neater. Configuring new instances and setting up security groups on AWS is so simple, I would highly recommend you to have a play with it. They offer a pretty decent trial, too!</p>
+
+<p>Unfortunately, due to time constraints, we didn&rsquo;t have any time to automate our deployments. This is something I&rsquo;d like to go back and work out, as they say that if you ever need to SSH in to one of your instances then you are doing it wrong.</p>
+
+<p>We didn&rsquo;t have time to configure RabbitMQ to be highly available, which had a knock-on effect of making the other subsystems that rely on it a single point of failure. In fact, we only managed to make the web servers highly available and that was due to using AWS&rsquo;s elastic load balancers. Obviously, we could have made the rest of the system highly available if we had the time to learn how, but if we had used AWS&rsquo;s message queue offerings, which are highly available with zero configuration, then we could have made the entire system much more robust with much less time spent. I think this is an important consideration for a live system, if getting to market as soon as possible is the primary concern then consider using AWS&rsquo;s services while building the system, but be sure to put a strong interface between the services and your application so that you don&rsquo;t couple your system with AWS. One day you may decide to move hosts or build your own data centre.</p>
+
+<hr/>
+
+<p>Using the right tools for the job can make development a lot faster than you may be used to. New technology and architectures are not always the silver bullet you are looking for but they can still be effective at killing a few old dragons. (<em>I believe mixed metaphors are often the most effective.</em>)</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/architecture">#architecture</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Feb 11, 2014 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

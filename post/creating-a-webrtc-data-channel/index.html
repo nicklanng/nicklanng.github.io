@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/creating-a-webrtc-data-channel/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Creating a WebRTC Data Channel" />
+<meta property="og:description" content="I was recently learning about browser-based game development and was wondering about multiplayer games. WebSockets are super easy to work with but are they any good for games? The answer is yes and no. If you make a turn-based thing that doesn&rsquo;t require up to the millisecond updates then WebSockets are the way to go, but for any fast-paced games they&rsquo;re just not up to scratch.
+WebSockets are built on TCP, a reliable messaging protocol that ensures all data arrives and that it arrives in order." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/creating-a-webrtc-data-channel/" />
+
+
+
+<meta property="article:published_time" content="2016-04-19T15:06:08&#43;00:00"/>
+
+<meta property="article:modified_time" content="2016-04-19T15:06:08&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Creating a WebRTC Data Channel"/>
+<meta name="twitter:description" content="I was recently learning about browser-based game development and was wondering about multiplayer games. WebSockets are super easy to work with but are they any good for games? The answer is yes and no. If you make a turn-based thing that doesn&rsquo;t require up to the millisecond updates then WebSockets are the way to go, but for any fast-paced games they&rsquo;re just not up to scratch.
+WebSockets are built on TCP, a reliable messaging protocol that ensures all data arrives and that it arrives in order."/>
+
+
+
+<meta itemprop="name" content="Creating a WebRTC Data Channel">
+<meta itemprop="description" content="I was recently learning about browser-based game development and was wondering about multiplayer games. WebSockets are super easy to work with but are they any good for games? The answer is yes and no. If you make a turn-based thing that doesn&rsquo;t require up to the millisecond updates then WebSockets are the way to go, but for any fast-paced games they&rsquo;re just not up to scratch.
+WebSockets are built on TCP, a reliable messaging protocol that ensures all data arrives and that it arrives in order.">
+
+
+<meta itemprop="datePublished" content="2016-04-19T15:06:08&#43;00:00" />
+<meta itemprop="dateModified" content="2016-04-19T15:06:08&#43;00:00" />
+<meta itemprop="wordCount" content="878">
+
+
+
+<meta itemprop="keywords" content="code,node,javascript," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Creating a WebRTC Data Channel 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Creating a WebRTC Data Channel </h1>
+    <div class="content"> 
+
+<p>I was recently learning about browser-based game development and was wondering about multiplayer games. WebSockets are super easy to work with but are they any good for games? The answer is yes and no. If you make a turn-based thing that doesn&rsquo;t require up to the millisecond updates then WebSockets are the way to go, but for any fast-paced games they&rsquo;re just not up to scratch.</p>
+
+<p>WebSockets are built on TCP, a reliable messaging protocol that ensures all data arrives and that it arrives in order. The repercussions of this is a short delay whenever a message goes missing, all the messages that come after have to wait for the missing one to be resent and received before they can be processed.</p>
+
+<p>WebRTC is a newer technology that allows peer to peer transmission of three channels: audio, video and data. It was the data channel that interested me. WebRTC transmits over UDP, it has to or the audio and video channels would have super choppy playback while waiting for any missed packets to be resent. If I could create a WebRTC data channel from the browser to a server then I could have fast UDP game messages and hopefully get a better multiplayer experience.</p>
+
+<p>As always with Node, this was so much simpler than I was expecting! Below is an explanation of the important bits of code. You can click the button in the top right to go to the Github repository for this project but be warned that the server doesn&rsquo;t support Windows; this is due to the <strong>wrtc</strong> library that mimics some WebRTC features only found in browsers.</p>
+
+<h1 id="how-does-it-work">How does it work?</h1>
+
+<p>In order to create a WebRTC connection, the two legs of the connection need to be able to signal each other. Without an existing WebRTC connection you need some sort of reliable messaging system, WebSockets is perfect for this! We use WebSockets to allow the two legs of the connection to signal and negotiate a WebRTC connection.</p>
+
+<p>The initiating leg sends an offer to its requested party. In this case, the initiator is the web page and it offers a connection to the server. The server responds to the offer with an accept. All of this communication is done over WebSockets.</p>
+
+<p>Once both parties have agreed to connect and have been told how to connect to each other, a WebRTC connection is established.</p>
+
+<p>The actual process of signalling is a little more complex than that, with STUN and TURN servers and ICE. Lots of scary acronyms, but the basics are that these servers let each client know how the other can connect to it through NATs and the like, and then the clients tell each other that information .</p>
+
+<h3 id="npm-packages">NPM Packages</h3>
+
+<p>There are three important packages used in the solution.</p>
+
+<ul>
+<li><a href="https://www.npmjs.com/package/socket.io">socket.io</a> WebSockets for Node.js and the browser</li>
+<li><a href="https://www.npmjs.com/package/simple-peer">simple-peer</a> Simple WebRTC video/voice and data channels</li>
+<li><a href="https://www.npmjs.com/package/wrtc">wrtc</a> WebRTC stack for node.js</li>
+</ul>
+
+<h1 id="the-code">The code</h1>
+
+<h3 id="client">Client</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// main.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SimplePeer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;simple-peer&#39;</span>
+
+<span style="color:#75715e">// create the WebSocket connection
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">socket</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">io</span>()
+
+<span style="color:#75715e">// create a WebRTC connection, as the client this will be the initiating leg
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">peer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SimplePeer</span>({ <span style="color:#a6e22e">initiator</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> })
+
+<span style="color:#75715e">// when we get a signal, send it over the WebSocket to the server
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, (<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, <span style="color:#a6e22e">data</span>))
+
+<span style="color:#75715e">// WebRTC connection is successful!
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;connect&#39;</span>, () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;connected&#39;</span>))
+
+<span style="color:#75715e">// when we get a signal over the WebSocket from the server, signal the WebRTC connection
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, (<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">signal</span>(<span style="color:#a6e22e">data</span>))
+</code></pre></div>
+
+<h3 id="server">Server</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// index.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">express</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Server</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;http&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SocketIo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;socket.io&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">connection</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./connection&#39;</span>
+
+<span style="color:#75715e">// create the web server with a WebSocket connection
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Server</span>(<span style="color:#a6e22e">app</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">io</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SocketIo</span>(<span style="color:#a6e22e">server</span>)
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">express</span>.<span style="color:#66d9ef">static</span>(<span style="color:#e6db74">&#39;static&#39;</span>))
+
+<span style="color:#75715e">// once we connect over WebSocket, try to start a WebRTC connection
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;connection&#39;</span>, <span style="color:#a6e22e">connection</span>)
+
+<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">3000</span>, () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;listening on *:3000&#39;</span>))
+</code></pre></div>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// connection.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SimplePeer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;simple-peer&#39;</span>
+
+<span style="color:#75715e">// bring in our WebRTC polyfill
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">wrtc</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;wrtc&#39;</span>
+
+<span style="color:#75715e">// this code is 90% the same as the code in the client!
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">connection</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">socket</span>) =&gt; {
+  <span style="color:#75715e">// be sure to pass in the WebRTC polyfills
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">peer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SimplePeer</span>({ <span style="color:#a6e22e">wrtc</span> })
+
+  <span style="color:#75715e">// when we get a signal, send it over the WebSocket to the server
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, (<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, <span style="color:#a6e22e">data</span>))
+
+  <span style="color:#75715e">// WebRTC connection is successful!
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;connect&#39;</span>, () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;connected&#39;</span>))
+
+  <span style="color:#75715e">// when we get a signal over the WebSocket from the client, signal the WebRTC connection
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">socket</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;signal&#39;</span>, (<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">signal</span>(<span style="color:#a6e22e">data</span>))
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">connection</span>
+</code></pre></div>
+
+<h1 id="sending-data">Sending data</h1>
+
+<p>I&rsquo;m not sending any data across in the example project, so let me show you here how I like to do it.</p>
+
+<p>A simple-peer connection has a function called <strong>send</strong>. This function takes just one argument which is the data you want to send. The supported data types are <strong>String</strong>, <strong>Buffer</strong>, <strong>TypedArrayView</strong> (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">more specifically, those types that extend it</a>), <strong>ArrayBuffer</strong> or <strong>Blob</strong> (where supported).</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;I am sending a string!&#39;</span>)
+<span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">send</span>(<span style="color:#ae81ff">32</span>) <span style="color:#75715e">// WATCH OUT - Gets converted to a string
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>([<span style="color:#ae81ff">32</span>]))
+<span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Buffer</span>([<span style="color:#ae81ff">32</span>]))
+</code></pre></div>
+
+<p>I favor using Buffer, this is a common type in Node.js and the creator of Simple-Peer has also created a <a href="https://github.com/feross/buffer">version of Buffer that works in the browser</a>. This way, I can use the same netcode across my server and my client.</p>
+
+<p>To receive data, simply implement on a data event handler!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">peer</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;data&#39;</span>, (<span style="color:#a6e22e">data</span>) =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>))
+</code></pre></div></p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/node">#node</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/javascript">#javascript</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Apr 19, 2016 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

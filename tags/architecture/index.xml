@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Architecture on i do web stuff</title>
+    <link>https://nicklanng.github.io/tags/architecture/</link>
+    <description>Recent content in Architecture on i do web stuff</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2018, all rights reserved.</copyright>
+    <lastBuildDate>Fri, 13 Nov 2015 16:12:42 +0000</lastBuildDate>
+    
+	<atom:link href="https://nicklanng.github.io/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Basic Javascript Patterns</title>
+      <link>https://nicklanng.github.io/post/basic-javascript-patterns/</link>
+      <pubDate>Fri, 13 Nov 2015 16:12:42 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/basic-javascript-patterns/</guid>
+      <description>Javascript is quite a loose language, its possible to do things in a bunch of different ways. This tends to lead to developers coding themselves into a corner with custom patterns that seem clunky.
+Below are a few of the patterns that are often seen in Javascript development, use these as a reference if you&amp;rsquo;re unsure about how to write a Javascript module.
+The module.exports property and the require function are found in either Node.</description>
+    </item>
+    
+    <item>
+      <title>Data Access Patterns</title>
+      <link>https://nicklanng.github.io/post/data-access-patterns/</link>
+      <pubDate>Thu, 24 Sep 2015 16:01:36 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/data-access-patterns/</guid>
+      <description>I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.
+ Repositories Query Objects Active Records  This code is written using Dapper and AutoMapper. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&amp;rsquo;t have to do this but it keeps the examples concise.</description>
+    </item>
+    
+    <item>
+      <title>Service-oriented Hackathon</title>
+      <link>https://nicklanng.github.io/post/service-oriented-hackathon/</link>
+      <pubDate>Tue, 11 Feb 2014 23:27:22 +0000</pubDate>
+      
+      <guid>https://nicklanng.github.io/post/service-oriented-hackathon/</guid>
+      <description>Last week my company held its quarterly hackathon event. A hackathon is a time for developers to try out some of those things they think would be a great idea but which may be difficult to get on to the official roadmap. As all of our products live in the cloud, my team&#39;s project was to spike a distributed service-oriented architecture (or SOA), similar to the way Netflix operates.</description>
+    </item>
+    
+  </channel>
+</rss>

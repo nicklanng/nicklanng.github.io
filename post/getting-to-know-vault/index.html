@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/getting-to-know-vault/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Getting to Know Vault" />
+<meta property="og:description" content="#What is Vault?
+Vault is a secrets management tool from the excellent people at Hashicorp. A constantly evolving solution, based on academia, that always passes security audits with flying colors. It feels like using an encrypted Redis or Memcached.
+From the website - https://www.vaultproject.io/ &gt; Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/getting-to-know-vault/" />
+
+
+
+<meta property="article:published_time" content="2017-10-23T07:40:15&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-10-23T07:40:15&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting to Know Vault"/>
+<meta name="twitter:description" content="#What is Vault?
+Vault is a secrets management tool from the excellent people at Hashicorp. A constantly evolving solution, based on academia, that always passes security audits with flying colors. It feels like using an encrypted Redis or Memcached.
+From the website - https://www.vaultproject.io/ &gt; Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing."/>
+
+
+
+<meta itemprop="name" content="Getting to Know Vault">
+<meta itemprop="description" content="#What is Vault?
+Vault is a secrets management tool from the excellent people at Hashicorp. A constantly evolving solution, based on academia, that always passes security audits with flying colors. It feels like using an encrypted Redis or Memcached.
+From the website - https://www.vaultproject.io/ &gt; Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing.">
+
+
+<meta itemprop="datePublished" content="2017-10-23T07:40:15&#43;00:00" />
+<meta itemprop="dateModified" content="2017-10-23T07:40:15&#43;00:00" />
+<meta itemprop="wordCount" content="2587">
+
+
+
+<meta itemprop="keywords" content="vault,hashicorp,security," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Getting to Know Vault 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Getting to Know Vault </h1>
+    <div class="content"> <p>#What is Vault?</p>
+
+<p>Vault is a secrets management tool from the excellent people at Hashicorp. A constantly evolving solution, based on academia, that always passes security audits with flying colors. It feels like using an encrypted Redis or Memcached.</p>
+
+<p>From the website - <a href="https://www.vaultproject.io/">https://www.vaultproject.io/</a>
+&gt; Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing. Through a unified API, users can access an encrypted Key/Value store and network encryption-as-a-service, or generate AWS IAM/STS credentials, SQL/NoSQL databases, X.509 certificates, SSH credentials, and more.</p>
+
+<p>#Set up a development environment</p>
+
+<p>I&rsquo;m a Mac user with Homebrew installed, so to install Vault I simply run:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install vault</code></pre></div></p>
+
+<p>For other operating systems, please refer to the binary downloads: <a href="https://www.vaultproject.io/downloads.html">https://www.vaultproject.io/downloads.html</a>.</p>
+
+<p>Next, I open up a terminal and start Vault in dev mode; this allows quick and easy start up for learning Vault but is <strong>not</strong> recommended for production deployments.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault server -dev
+
+<span style="color:#f92672">==</span>&gt; Vault server configuration:
+
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+              Listener <span style="color:#ae81ff">1</span>: tcp <span style="color:#f92672">(</span>addr: <span style="color:#e6db74">&#34;127.0.0.1:8200&#34;</span>, cluster address: <span style="color:#e6db74">&#34;127.0.0.1:8201&#34;</span>, tls: <span style="color:#e6db74">&#34;disabled&#34;</span><span style="color:#f92672">)</span>
+               Log Level: info
+                   Mlock: supported: false, enabled: false
+        Redirect Address: http://127.0.0.1:8200
+                 Storage: inmem
+                 Version: Vault v0.8.3
+             Version Sha: 6b29fb2b7f70ed538ee2b3c057335d706b6d4e36
+
+<span style="color:#f92672">==</span>&gt; WARNING: Dev mode is enabled!
+
+In this mode, Vault is completely in-memory and unsealed.
+Vault is configured to only have a single unseal key. The root
+token has already been authenticated with the CLI, so you can
+immediately begin using the Vault CLI.
+
+The only step you need to take is to set the following
+environment variables:
+
+    export VAULT_ADDR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://127.0.0.1:8200&#39;</span>
+
+The unseal key and root token are reproduced below in <span style="color:#66d9ef">case</span> you
+want to seal/unseal the Vault or play with authentication.
+
+Unseal Key: 7bU0jT/vrbTIJ0U2LMZ7/mh7OSlF08oywbrX06qU41Q<span style="color:#f92672">=</span>
+Root Token: 92c72f27-a303-3212-701d-795242d99ea1
+
+<span style="color:#f92672">==</span>&gt; Vault server started! Log data will stream in below:</code></pre></div>
+
+<p>The most important part here is the environmental variable required to have the Vault command line communicate with the correct endpoint. Run the following in your terminal:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export VAULT_ADDR<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://127.0.0.1:8200&#39;</span></code></pre></div>
+
+<p>The Vault server is now up and running,  unsealed and ready to play with!</p>
+
+<p>#What can you do with it?</p>
+
+<p>All of the operations here using the <code>vault</code> command line tool are available in the API. In fact, all the <code>vault</code> command is doing is calling the API, there&rsquo;s no special access route for the command line. Any application with the ability to communicate with HTTP APIs can communicate with Vault.</p>
+
+<p>##Key Value Storage
+The most basic operation Vault provides is storing and retrieving secrets in the Key Value backend.
+You can see all of the backends mounted in the server.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault mounts
+Path        Type       Accessor            Plugin  Default TTL  Max TTL  Force No Cache  Replication Behavior  Description
+cubbyhole/  cubbyhole  cubbyhole_9c150dcf  n/a     n/a          n/a      false           local                 per-token private secret storage
+secret/     kv         kv_eff8b60a         n/a     system       system   false           replicated            key/value secret storage
+sys/        system     system_f08dd5fb     n/a     n/a          n/a      false           replicated            system endpoints used <span style="color:#66d9ef">for</span> control, policy and debugging</code></pre></div></p>
+
+<p>In that list is a kv (Key Value) store mounted at secret/. So let&rsquo;s write a secret into vault.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write secret/mysecrets name<span style="color:#f92672">=</span>foo password<span style="color:#f92672">=</span>bar
+Success! Data written to: secret/mysecrets</code></pre></div>
+
+<p>And we can read it back out.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault read secret/mysecrets
+Key             	Value
+---             	-----
+refresh_interval	768h0m0s
+name            	foo
+password        	bar</code></pre></div></p>
+
+<p>The <code>refresh_interval</code> is the least obvious field here, it is a hint to the client when they should check again to see if this data has changed. More information can be found at the page linked at the bottom of this section.</p>
+
+<p>When I first tried this, I couldn&rsquo;t work out what I was seeing. Is this stuff encrypted or not, because this is way too easy! So some things to note:</p>
+
+<ul>
+<li>All of the data in the backend is encrypted at rest.</li>
+<li>All of the data is encrypted in transit.</li>
+<li>This dev server has given me root access to do anything I want (nearly).</li>
+</ul>
+
+<p>You can also request the data in JSON format, which also gives a little more information.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault read -format<span style="color:#f92672">=</span>json secret/mysecrets
+<span style="color:#f92672">{</span>
+	<span style="color:#e6db74">&#34;request_id&#34;</span>: <span style="color:#e6db74">&#34;62999ca5-dbe7-f4d7-09dd-d75131ad3b2f&#34;</span>,
+	<span style="color:#e6db74">&#34;lease_id&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+	<span style="color:#e6db74">&#34;lease_duration&#34;</span>: <span style="color:#ae81ff">2764800</span>,
+	<span style="color:#e6db74">&#34;renewable&#34;</span>: false,
+	<span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#f92672">{</span>
+		<span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;foo&#34;</span>,
+		<span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;bar&#34;</span>
+	<span style="color:#f92672">}</span>,
+	<span style="color:#e6db74">&#34;warnings&#34;</span>: null
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>The secret can be deleted with a simple command.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault delete secret/mysecrets
+Success! Deleted <span style="color:#e6db74">&#39;secret/mysecrets&#39;</span> <span style="color:#66d9ef">if</span> it existed.</code></pre></div></p>
+
+<p><strong>Note</strong>: The kv backend <strong>never</strong> removes data on its own. Lease durations, TTLs and so on are all advisory for this backend, but we will talk about them more in the next sections.</p>
+
+<p>You can read more about the kv backend here <a href="https://www.vaultproject.io/docs/secrets/kv/index.html">https://www.vaultproject.io/docs/secrets/kv/index.html</a>.</p>
+
+<p>##Encryption as a Service
+The transit backend provides encryption of data, but does not store the result in the Vault, instead it returns the data to the caller. This can be useful if you want to keep the encryption keys in the vault but want to store the result in your applications primary data store.</p>
+
+<p>First, mount the transit backend into Vault.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault mount transit
+Successfully mounted <span style="color:#e6db74">&#39;transit&#39;</span> at <span style="color:#e6db74">&#39;transit&#39;</span>!</code></pre></div></p>
+
+<p>Then we need to create a cryptographically complex key to be used to sign all of our data. You can create multiple keys to be used for different things, so that if one is compromised the rest of your data is safe. Of course, obtaining the key is extremely unlikely since it is safely stored in Vault and never revealed.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write -f transit/keys/my-key
+Success! Data written to: transit/keys/my-key
+
+$ vault read transit/keys/my-key
+Key                   	Value
+---                   	-----
+deletion_allowed      	false
+derived               	false
+exportable            	false
+keys                  	map<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span>:1508678900<span style="color:#f92672">]</span>
+latest_version        	<span style="color:#ae81ff">1</span>
+min_decryption_version	<span style="color:#ae81ff">1</span>
+min_encryption_version	<span style="color:#ae81ff">0</span>
+name                  	my-key
+supports_decryption   	true
+supports_derivation   	true
+supports_encryption   	true
+supports_signing      	false
+type                  	aes256-gcm96</code></pre></div>
+
+<p>Now we can encrypt some data. The data you want to encrypt may not be plain text, so this backend requires that your data be base64.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write transit/encrypt/foo plaintext<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#39;perhaps_some_password&#39;</span> | base64<span style="color:#66d9ef">)</span>
+Key       	Value
+---       	-----
+ciphertext	vault:v1:FmwcD8Bo4BWppinKOuDZ3t3oN/En/o7yXbpYGBgumEYdvKeDmLzZ6UYFunq+0/OAin8<span style="color:#f92672">=</span></code></pre></div>
+
+<p>Decrypting the value is as simple as calling transit/decrypt/&hellip;</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write transit/decrypt/foo ciphertext<span style="color:#f92672">=</span>vault:v1:FmwcD8Bo4BWppinKOuDZ3t3oN/En/o7yXbpYGBgumEYdvKeDmLzZ6UYFunq+0/OAin8<span style="color:#f92672">=</span>
+Key      	Value
+---      	-----
+plaintext	cGVyaGFwc19zb21lX3Bhc3N3b3JkCg<span style="color:#f92672">==</span></code></pre></div>
+
+<p>Remember, the value was base64 encoded. Lets decode it to get back to the original value.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;cGVyaGFwc19zb21lX3Bhc3N3b3JkCg==&#34;</span> | base64 --decode
+perhaps_some_password</code></pre></div>
+
+<p>##Dynamic Secret Leasing
+This is the capability that really makes Vault stand apart from its rivals.</p>
+
+<p>Vault is able to create credentials for various backends, on-request, and then revoke them again after some time. The upside is that you never need to create a static set of credentials for services like databases, cloud providers etc&hellip; that will be left around unless manually rotated. The credentials can exist for the amount of time they&rsquo;re are needed and then destroyed, minimizing the amount of damage any compromised credentials may cause.</p>
+
+<p>In this section I will show setting up MySQL and AWS credentials.</p>
+
+<p>##MySQL
+First, mount the database backend.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault mount database
+Successfully mounted <span style="color:#e6db74">&#39;database&#39;</span> at <span style="color:#e6db74">&#39;database&#39;</span>!</code></pre></div></p>
+
+<p>Next, lets configure the database backend. The connection URL is in the Data Source Name format used in the Go database packages <a href="https://github.com/go-sql-driver/mysql#dsn-data-source-name">https://github.com/go-sql-driver/mysql#dsn-data-source-name</a>.  Here we are setting up a read only connection, perhaps pointing to a read slave server.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write database/config/mysql <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    plugin_name<span style="color:#f92672">=</span>mysql-database-plugin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    connection_url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root:root@tcp(127.0.0.1:3306)/&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    allowed_roles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;readonly&#34;</span>
+
+The following warnings were returned from the Vault server:
+* Read access to this endpoint should be controlled via ACLs as it will <span style="color:#66d9ef">return</span> the connection details as is, including passwords, <span style="color:#66d9ef">if</span> any.</code></pre></div></p>
+
+<p>That message is very important, the root MySQL configuration is not protected by default. You must configure ACLs to keep it safe. This topic is not covered in this article.</p>
+
+<p>Now we need to tell Vault how to create a user in MySQL when an application requests readonly database access. The tokens inside the {{}} brackets will be dynamically filled in by Vault when creating each instance of a user/credentials. Note that we are setting the TTL settings for this connection, more information can be found on this in the excellent Vault documentation.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write database/roles/readonly <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    db_name<span style="color:#f92672">=</span>mysql <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    creation_statements<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CREATE USER &#39;{{name}}&#39;@&#39;%&#39; IDENTIFIED BY &#39;{{password}}&#39;;GRANT SELECT ON *.* TO &#39;{{name}}&#39;@&#39;%&#39;;&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    default_ttl<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1h&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    max_ttl<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;24h&#34;</span>
+
+Success! Data written to: database/roles/readonly</code></pre></div></p>
+
+<p>Now an application can request a lease for some dynamic readonly credentials for MySQL. The username and password seen here is now a valid username and password for the specified MySQL database. Vault will delete the user after 1 hour.</p>
+
+<p><strong>Note</strong>: Where possible, Vault will rely on the backend&rsquo;s own system for automatically purging credentials, in the event that Vault is DDOS&rsquo;d and unable to revoke itself.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault read database/creds/readonly
+Key            	Value
+---            	-----
+lease_id       	database/creds/readonly/59e6797f-c064-aaa0-10d4-43533ee001fe
+lease_duration 	1h0m0s
+lease_renewable	true
+password       	A1a-5uxrszsxvr37uupv
+username       	v-root-readonly-s60rvq7vvutt0z33
+
+$ mysql -uroot -proot -e <span style="color:#e6db74">&#34;SELECT * FROM mysql.user&#34;</span>
++-----------+----------------------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| Host      | User                             | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string                     | password_expired | password_last_changed | password_lifetime | account_locked |
++-----------+----------------------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| localhost | root                             | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | Y          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password |                                           | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | N              |
+| localhost | mysql.session                    | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | Y          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | Y              |
+| localhost | mysql.sys                        | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | Y              |
+| %         | v-root-readonly-s60rvq7vvutt0z33 | Y           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password | *5657F7F3731E1FBD45AB040AF5F18919C2717B63 | N                | <span style="color:#ae81ff">2017</span>-10-23 <span style="color:#ae81ff">08</span>:15:08   |              NULL | N              |
++-----------+----------------------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+</code></pre></div></p>
+
+<p>After one hour, the credentials will be removed from the database. However, you can revoke the details with a command and the lease_id if required.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault revoke database/creds/readonly/59e6797f-c064-aaa0-10d4-43533ee001fe
+Success! Revoked the secret with ID <span style="color:#e6db74">&#39;database/creds/readonly/59e6797f-c064-aaa0-10d4-43533ee001fe&#39;</span>, <span style="color:#66d9ef">if</span> it existed.
+
+$ mysql -uroot -proot -e <span style="color:#e6db74">&#34;SELECT * FROM mysql.user&#34;</span>
++-----------+---------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| Host      | User          | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string                     | password_expired | password_last_changed | password_lifetime | account_locked |
++-----------+---------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| localhost | root          | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | Y          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password |                                           | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | N              |
+| localhost | mysql.session | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | Y          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | Y              |
+| localhost | mysql.sys     | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             <span style="color:#ae81ff">0</span> |           <span style="color:#ae81ff">0</span> |               <span style="color:#ae81ff">0</span> |                    <span style="color:#ae81ff">0</span> | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | N                | <span style="color:#ae81ff">2017</span>-10-19 <span style="color:#ae81ff">13</span>:39:57   |              NULL | Y              |
++-----------+---------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+</code></pre></div>
+
+<p>##AWS
+Vault also has a backend for generating AWS credentials on the fly.</p>
+
+<p>Like before, start by mounting the backend.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault mount aws
+Successfully mounted <span style="color:#e6db74">&#39;aws&#39;</span> at <span style="color:#e6db74">&#39;aws&#39;</span>!</code></pre></div></p>
+
+<p>Now we configure the backend with the credentials it needs to create more users and roles.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write aws/config/root <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    access_key<span style="color:#f92672">={</span>AWS_ACCESS_KEY<span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    secret_key<span style="color:#f92672">={</span>AWS_SECRET_KEY<span style="color:#f92672">}</span>
+Success! Data written to: aws/config/root</code></pre></div></p>
+
+<p>The AWS backend differs from the database backend by restricting all access to the AWS config, even if you are root.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault read aws/config/root
+Error reading aws/config/root: Error making API request.
+
+URL: GET http://127.0.0.1:8200/v1/aws/config/root
+Code: <span style="color:#ae81ff">405</span>. Errors:
+
+* unsupported operation</code></pre></div></p>
+
+<p>One more step needed for AWS, is to grant Vault a policy it can use to create IAM users. Be sure not to grant it any more capabilities than it needs. Save this to a file called <code>policy.json</code>.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+  <span style="color:#f92672">&#34;Statement&#34;</span>: [
+    {
+      <span style="color:#f92672">&#34;Sid&#34;</span>: <span style="color:#e6db74">&#34;Stmt1426528957000&#34;</span>,
+      <span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+      <span style="color:#f92672">&#34;Action&#34;</span>: [
+        <span style="color:#e6db74">&#34;ec2:*&#34;</span>
+      ],
+      <span style="color:#f92672">&#34;Resource&#34;</span>: [
+        <span style="color:#e6db74">&#34;*&#34;</span>
+      ]
+    }
+  ]
+}</code></pre></div></p>
+
+<p>Now we create a role for AWS with the given policy. The @ sign here tells the command line to load the data from a file.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault write aws/roles/deploy policy<span style="color:#f92672">=</span>@policy.json
+Success! Data written to: aws/roles/deploy</code></pre></div></p>
+
+<p>Like with the MySQL backend, we can now read from and revoke credentials. As we do so, IAM users are created and destroyed in the AWS account.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vault read aws/creds/deploy
+Key             Value
+---             -----
+lease_id        aws/creds/deploy/0d042c53-aa8a-7ce7-9dfd-310351c465e5
+lease_duration  768h0m0s
+lease_renewable true
+access_key      AKIAJFN42DVCQWDHQYHQ
+secret_key      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
+security_token  &lt;nil&gt;
+
+$ vault revoke aws/creds/deploy/0d042c53-aa8a-7ce7-9dfd-310351c465e5
+Success! Revoked the secret with ID <span style="color:#e6db74">&#39;aws/creds/deploy/0d042c53-aa8a-7ce7-9dfd-310351c465e5&#39;</span>, <span style="color:#66d9ef">if</span> it existed.</code></pre></div></p>
+
+<p>#Closing Thoughts
+Hopefully, I&rsquo;ve demonstrated here that Vault could completely change the way we think about security. No more manual rotation of keys, no static database credentials, primarily automated access to AWS can all massively reduce the risk of a serious data breach or an AWS hijacking by Bitcoin bandits.</p>
+
+<p>Have you used Vault in production? If so, please comment and tell me about your experience!</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/vault">#vault</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/hashicorp">#hashicorp</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/security">#security</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Oct 23, 2017 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

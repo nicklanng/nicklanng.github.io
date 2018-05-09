@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/coffeescript-javascript-made-pretty/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Coffeescript - Javascript Made Pretty" />
+<meta property="og:description" content="I&rsquo;ve been writing a lot of Coffeescript lately. For a long time I avoided it, it looked all weird and scary but, once I finally bit the bullet, I realised its actually a rather pretty language.
+Below I&rsquo;ve highlighted some of my favourite parts of Coffeescript but it is in no way a complete guide. To learn more about Coffeescript, check out the excellent homepage at http://coffeescript.org/. You will find a detailed list of features, along with their Javascript alternatives, and also a neat sandbox for trying out the language and immediately seeing the output Javascript." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/coffeescript-javascript-made-pretty/" />
+
+
+
+<meta property="article:published_time" content="2015-06-14T14:57:49&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-06-14T14:57:49&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Coffeescript - Javascript Made Pretty"/>
+<meta name="twitter:description" content="I&rsquo;ve been writing a lot of Coffeescript lately. For a long time I avoided it, it looked all weird and scary but, once I finally bit the bullet, I realised its actually a rather pretty language.
+Below I&rsquo;ve highlighted some of my favourite parts of Coffeescript but it is in no way a complete guide. To learn more about Coffeescript, check out the excellent homepage at http://coffeescript.org/. You will find a detailed list of features, along with their Javascript alternatives, and also a neat sandbox for trying out the language and immediately seeing the output Javascript."/>
+
+
+
+<meta itemprop="name" content="Coffeescript - Javascript Made Pretty">
+<meta itemprop="description" content="I&rsquo;ve been writing a lot of Coffeescript lately. For a long time I avoided it, it looked all weird and scary but, once I finally bit the bullet, I realised its actually a rather pretty language.
+Below I&rsquo;ve highlighted some of my favourite parts of Coffeescript but it is in no way a complete guide. To learn more about Coffeescript, check out the excellent homepage at http://coffeescript.org/. You will find a detailed list of features, along with their Javascript alternatives, and also a neat sandbox for trying out the language and immediately seeing the output Javascript.">
+
+
+<meta itemprop="datePublished" content="2015-06-14T14:57:49&#43;00:00" />
+<meta itemprop="dateModified" content="2015-06-14T14:57:49&#43;00:00" />
+<meta itemprop="wordCount" content="950">
+
+
+
+<meta itemprop="keywords" content="code,javascript,coffeescript," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Coffeescript - Javascript Made Pretty 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Coffeescript - Javascript Made Pretty </h1>
+    <div class="content"> 
+
+<p>I&rsquo;ve been writing a lot of Coffeescript lately. For a long time I avoided it, it looked all weird and scary but, once I finally bit the bullet, I realised its actually a rather pretty language.</p>
+
+<p>Below I&rsquo;ve highlighted some of my favourite parts of Coffeescript but it is in no way a complete guide. To learn more about Coffeescript, check out the excellent homepage at <a href="http://coffeescript.org/">http://coffeescript.org/</a>. You will find a detailed list of features, along with their Javascript alternatives, and also a neat sandbox for trying out the language and immediately seeing the output Javascript.</p>
+
+<h2 id="semi-colons">Semi-colons</h2>
+
+<p>They are not used in Coffeescript, so that argument is avoided!</p>
+
+<h2 id="string-substitution">String Substitution</h2>
+
+<p>As in Javascript, you can use <strong>&lsquo;</strong> or <strong>&ldquo;</strong> to declare a string.
+Strings declared with <strong>&lsquo;</strong> are literal, but string declared with <strong>&ldquo;</strong> can have substituted values by using <strong>#{ &hellip; }</strong>.</p>
+
+<h4 id="coffeescript">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee">name = <span style="color:#e6db74">&#34;Rufus&#34;</span>
+
+<span style="color:#e6db74">&#39;Hello #{name}!&#39;</span>
+<span style="color:#75715e"># output = Hello #{name}!
+</span><span style="color:#75715e"></span>
+<span style="color:#e6db74">&#34;Hello </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!&#34;</span>
+<span style="color:#960050;background-color:#1e0010">#</span> output = <span style="color:#a6e22e">Hello</span> <span style="color:#a6e22e">Rufus</span><span style="color:#f92672">!</span></code></pre></div>
+
+<h2 id="functions">Functions</h2>
+
+<p>Declaring a function in javascript is quite syntax heavy. &lsquo;Function&rsquo; is a rather long word to see repeated in a code file and often whole lines are devoted to curly brackets. Coffeescript attempts to make this common declaration much more concise.</p>
+
+<h4 id="javascript">Javascript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;someValue&#34;</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">example</span>() {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;someValue&#34;</span>;
+}
+</code></pre></div>
+
+<h4 id="coffeescript-1">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#75715e"># in Coffeescript, the last line of a function is an implicit return
+</span><span style="color:#75715e"></span>example = <span style="color:#a6e22e">() -&gt;</span>
+  <span style="color:#e6db74">&#34;someValue&#34;</span>
+
+<span style="color:#75715e"># since there are no arguments to this function, the brackets are optional
+</span><span style="color:#75715e"></span>example = <span style="color:#a6e22e">-&gt;</span>
+  <span style="color:#e6db74">&#34;someValue&#34;</span>
+
+<span style="color:#75715e"># and why don&#39;t we just put it all on one line
+</span><span style="color:#75715e"></span>example = <span style="color:#a6e22e">-&gt;</span> <span style="color:#e6db74">&#34;someValue&#34;</span></code></pre></div>
+
+<p>Calling functions is mostly the same, with the main difference being the optional use of brackets.</p>
+
+<h4 id="coffeescript-2">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#75715e"># as there are no arguments to this function, we must use
+</span><span style="color:#75715e"># empty brackets to show that we are not referencing the
+</span><span style="color:#75715e"># function but invoking it
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">example</span>()
+
+<span style="color:#75715e"># when the function takes arguments, brackets are optional
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">anotherExample</span> <span style="color:#a6e22e">argument1</span>, <span style="color:#a6e22e">argument2</span>
+<span style="color:#a6e22e">anotherExample</span>(<span style="color:#a6e22e">argument1</span>, <span style="color:#a6e22e">argument2</span>)
+
+
+<span style="color:#75715e"># when chaining multiple function calls,
+</span><span style="color:#75715e"># it can make the code more readable to use occasional brackets
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">function1</span> <span style="color:#a6e22e">function2</span> <span style="color:#a6e22e">argument1</span>, <span style="color:#a6e22e">function3</span> <span style="color:#a6e22e">argument2</span>
+<span style="color:#a6e22e">function1</span> <span style="color:#a6e22e">function2</span>(<span style="color:#a6e22e">argument1</span>, <span style="color:#a6e22e">function3</span>(<span style="color:#a6e22e">argument2</span>))</code></pre></div>
+
+<h2 id="object-definitions">Object Definitions</h2>
+
+<p>We don&rsquo;t use the curly brackets and commas. The colon syntax and indentation is enough to work out this this is an object and not code. Although, if you&rsquo;re declaring an object on one line, commas are needed.</p>
+
+<h4 id="javascript-1">Javascript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bar&#34;</span>,
+  <span style="color:#a6e22e">sna</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;this looks like yaml&#34;</span>
+  },
+  <span style="color:#a6e22e">someNumber</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span>
+};
+
+<span style="color:#a6e22e">someFunction</span>({<span style="color:#a6e22e">option</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;aThing&#34;</span>, <span style="color:#a6e22e">choice</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>});
+</code></pre></div>
+
+<h4 id="coffeescript-3">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee">example =
+  foo: <span style="color:#e6db74">&#34;bar&#34;</span>
+  sna:
+    description: <span style="color:#e6db74">&#34;this looks like yaml&#34;</span>
+  someNumber: <span style="color:#ae81ff">42</span>
+
+<span style="color:#a6e22e">someFunction</span> option: <span style="color:#e6db74">&#34;aThing&#34;</span>, choice: <span style="color:#ae81ff">3</span></code></pre></div>
+
+<h2 id="classes">&lsquo;Classes&rsquo;</h2>
+
+<p>A lot of the features of Coffeescript classes are now available in ES6, but a couple of neat features aren&rsquo;t.</p>
+
+<h4 id="javascript-ecmascript-5">Javascript (Ecmascript 5)</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">MyClass</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">MyClass</span>() {}
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">privateFunction</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;I am not on the prototype of this object&#34;</span>;
+  };
+
+  <span style="color:#a6e22e">MyClass</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">myProperty</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;whoopsydoo&#34;</span>;
+
+  <span style="color:#a6e22e">MyClass</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">myFunction</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">argument</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">argument</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; has been substituted into a string&#34;</span>;
+  };
+
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">MyClass</span>;
+
+})();
+</code></pre></div>
+
+<h4 id="coffeescript-4">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span>
+  <span style="color:#75715e"># note that this function is declared with an = not a :
+</span><span style="color:#75715e"></span>  privateFunction = <span style="color:#a6e22e">-&gt;</span>
+    <span style="color:#e6db74">&#34;I am not on the prototype of this object&#34;</span>
+
+  myProperty: <span style="color:#e6db74">&#34;whoopsydoo&#34;</span>
+
+  myFunction: <span style="color:#a6e22e">(argument) -&gt;</span>
+    <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">argument</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> has been substituted into a string&#34;</span></code></pre></div>
+
+<p><strong>@</strong> is a shortcut for <strong>this</strong> and can be used to save some more lines of code in constructors. These next two examples are functionally equivalent.</p>
+
+<h4 id="javascript-ecmascript-6">Javascript (Ecmascript 6)</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;
+  }
+  <span style="color:#a6e22e">toString</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span>;
+  }
+}
+</code></pre></div>
+
+<h4 id="coffeescript-5">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>
+  constructor: <span style="color:#a6e22e">(@x, @y) -&gt;</span>
+  toString: <span style="color:#a6e22e">-&gt;</span>
+    <span style="color:#e6db74">&#34;(</span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">@x</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">@y</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span></code></pre></div>
+
+<h2 id="bound-functions">Bound Functions</h2>
+
+<p>The <strong>this</strong> keyword can be a bitch. The meaning of <strong>this</strong> can change depending on what scope it is being used in - this certainly confused the hell out of me when I was learning Javascript and coming from the .Net world.</p>
+
+<p>A common pattern in Javascript is to create a variable at the top of the class that saves the initial, class-scoped <strong>this</strong> value. Coffeescript supplies a shortcut to this pattern. When declaring a function you can use a fat arrow that passes the meaning of <strong>this</strong> into the function. An example below is from a class that takes a node socket and attaches an event handler to the data event. Note that the handler is created using the <strong>=&gt;</strong> operator which passes in <strong>this</strong>.</p>
+
+<h4 id="coffeescript-6">Coffeescript</h4>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee">cleanInput = <span style="color:#a6e22e">(input) -&gt;</span>
+  <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">toString</span>().<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/(\r\n|\n|\r)/gm</span>,<span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">toLowerCase</span>()
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TelnetConnection</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">EventEmitter</span>
+  constructor: <span style="color:#a6e22e">(@socket) -&gt;</span>
+    <span style="color:#a6e22e">@socket</span>.<span style="color:#66d9ef">on</span> <span style="color:#e6db74">&#39;data&#39;</span>, <span style="color:#a6e22e">(data) =&gt;</span> <span style="color:#75715e"># Fat arrow
+</span><span style="color:#75715e"></span>      <span style="color:#75715e"># this still refers to the TelnetConnection class
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">@emit</span> <span style="color:#e6db74">&#39;input&#39;</span>, <span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">cleanInput</span>(<span style="color:#a6e22e">data</span>)</code></pre></div>
+
+<h1 id="you-should-learn-javascript-first">You should learn Javascript first</h1>
+
+<p>I&rsquo;d be wary of any developer starting out with Coffeescript without first having a good understanding of Javascript. Coffeescript is transpiled into Javascript before being run so if you get a crazy error message you&rsquo;re gonna want to know what it means. Particularly when learning, you will write malformed Coffeescript that transpiles into perfect Javascript, but not in the way you intended.
+There are tools out there that let you preview the Javascript generated by your Coffeescript, but they&rsquo;re only helpful if you know what the Javascript is supposed to look like!</p>
+
+<h2 id="coffeescript-typescript-dart-javascript">Coffeescript? Typescript? Dart? Javascript?</h2>
+
+<p>Javascript, yes. If you are a web developer, learn Javascript.</p>
+
+<p>As for the other three, it doesn&rsquo;t really matter. I think certain cultures value the various Javascript-like languages differently so you&rsquo;re free to choose the one you like or the one that the people you want to fit in with like.</p>
+
+<p>I like Coffeescript because it is pretty and concise. Others like Typescript because of the type safety and really great Microsoft support. I don&rsquo;t really know much about Dart.</p>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/javascript">#javascript</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/coffeescript">#coffeescript</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Jun 14, 2015 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

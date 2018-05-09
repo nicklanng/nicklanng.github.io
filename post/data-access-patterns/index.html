@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/data-access-patterns/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Data Access Patterns" />
+<meta property="og:description" content="I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.
+ Repositories Query Objects Active Records  This code is written using Dapper and AutoMapper. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&rsquo;t have to do this but it keeps the examples concise." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/data-access-patterns/" />
+
+
+
+<meta property="article:published_time" content="2015-09-24T16:01:36&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-09-24T16:01:36&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Access Patterns"/>
+<meta name="twitter:description" content="I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.
+ Repositories Query Objects Active Records  This code is written using Dapper and AutoMapper. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&rsquo;t have to do this but it keeps the examples concise."/>
+
+
+
+<meta itemprop="name" content="Data Access Patterns">
+<meta itemprop="description" content="I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.
+ Repositories Query Objects Active Records  This code is written using Dapper and AutoMapper. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&rsquo;t have to do this but it keeps the examples concise.">
+
+
+<meta itemprop="datePublished" content="2015-09-24T16:01:36&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-24T16:01:36&#43;00:00" />
+<meta itemprop="wordCount" content="2251">
+
+
+
+<meta itemprop="keywords" content="code,architecture,csharp," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Data Access Patterns 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Data Access Patterns </h1>
+    <div class="content"> 
+
+<p>I recently got into a conversation with a colleague about system design and testability. One of the fun asides we got into was about data storage and why we use repositories. Below is my best attempt at explaining what I consider to be the main three data access strategies used in modern times.</p>
+
+<ul>
+<li><a href="#repositories">Repositories</a></li>
+<li><a href="#queryObjects">Query Objects</a></li>
+<li><a href="#activeRecords">Active Records</a></li>
+</ul>
+
+<p>This code is written using <a href="https://github.com/StackExchange/dapper-dot-net">Dapper</a> and <a href="https://github.com/AutoMapper/AutoMapper">AutoMapper</a>. MySQL connections are created in the service layer, coupling the service with the persistence technology; you don&rsquo;t have to do this but it keeps the examples concise.</p>
+
+<p>What you will probably find from the code examples is that, although the code differences are quite minimal, the architectural considerations vary quite widely between the strategies.</p>
+
+<p><a name="repositories"></a></p>
+
+<h2 id="repositories">Repositories</h2>
+
+<p>Repositories are great for containing your <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a> operations for entities. You can think of an entity as a thing or object in your domain model, some examples could be User, Article or Order. Another rule of thumb is that an entity has to have an Id, not a database auto-increment for linking but a semantically valid Id in the domain. Having all of the database methods for that entity in one class is quite neat.</p>
+
+<p>Sometimes, you need to query the database for something that isn&rsquo;t an entity; perhaps there&rsquo;s some metadata or link table that isn&rsquo;t necessarily part of the entity but doesn&rsquo;t constitute an entity of its own. Sometimes you need to calculate some information that isn&rsquo;t directly modeled in your entities, an example could be that you have two statistics records and you want to find the average time between those two records. A statistics record isn&rsquo;t an entity and the information you want isn&rsquo;t modeled. It&rsquo;s situations like these that can really start to make Repositories muddy and difficult to maintain.</p>
+
+<p>Even when dealing with an entity, there may be a number of variations of the CRUD methods. Often you&rsquo;ll see GetById, GetByName and GetByEmail methods. InsertOrUpdate is another method that can show up. All of these things start to obfuscate the simple CRUD nature of a repository and the class begins to grow and grow. Conversely, sometimes a repository doesn&rsquo;t have all four of the basic CRUD operations because <a href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it">You Aint Gonna Need</a> one of them. This is fine but when another developer comes along and that method doesn&rsquo;t exist it can cause a cognitive disconnect and start to brew feelings of hindsight bias.</p>
+
+<h3 id="public-service-layer">Public Service Layer</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipService</span> : IStarshipService
+{
+    <span style="color:#66d9ef">public</span> IEnumerable&lt;StarshipDTO&gt; GetPagedStarships(<span style="color:#66d9ef">long</span> pageNumber)
+    {
+        <span style="color:#66d9ef">var</span> starshipRepository = <span style="color:#66d9ef">new</span> StarshipRepository();
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            <span style="color:#66d9ef">var</span> starshipsResult = starshipRepository.GetStarships(connection, <span style="color:#ae81ff">10</span>, pageNumber);
+            <span style="color:#66d9ef">return</span> Mapper.Map&lt;IEnumerable&lt;StarshipEntity&gt;, IEnumerable&lt;StarshipDTO&gt;&gt;(starshipsResult);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CreateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">var</span> entity = Mapper.Map&lt;StarshipEntity&gt;(starship);
+        <span style="color:#66d9ef">var</span> starshipRepository = <span style="color:#66d9ef">new</span> StarshipRepository();
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            starshipRepository.Save(connection, entity);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> UpdateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">var</span> entity = Mapper.Map&lt;StarshipEntity&gt;(starship);
+        <span style="color:#66d9ef">var</span> starshipRepository = <span style="color:#66d9ef">new</span> StarshipRepository();
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            starshipRepository.Update(connection, entity);
+        }
+    }
+}</code></pre></div>
+
+<h3 id="data-access">Data Access</h3>
+
+<p>The entity in this example is very lightweight. More often, the entity contains domain logic as well as its basic fields.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipRepository</span>
+{
+    <span style="color:#66d9ef">public</span> IEnumerable&lt;StarshipEntity&gt; GetStarships(IDbConnection connection, <span style="color:#66d9ef">long</span> pageNumber, <span style="color:#66d9ef">long</span> pageSize)
+    {
+        <span style="color:#66d9ef">return</span> connection.Query(
+                <span style="color:#e6db74">@&#34;SELECT Id, Name, PositionX, PositionY, PositionZ
+</span><span style="color:#e6db74">                  FROM Starship
+</span><span style="color:#e6db74">                  ORDER BY Name
+</span><span style="color:#e6db74">                  LIMIT @pageSize OFFSET @offset;&#34;</span>,
+                <span style="color:#66d9ef">new</span>
+                {
+                    pageSize,
+                    offset = pageNumber * pageSize
+                })
+            .Select(
+                row =&gt; <span style="color:#66d9ef">new</span> StarshipEntity
+                {
+                    Id = row.Id,
+                    Name = row.Name,
+                    Position = <span style="color:#66d9ef">new</span> Vector3
+                    {
+                        X = row.PositionX,
+                        Y = row.PositionY,
+                        Z = row.PositionZ
+                    }
+                }
+            ).ToList();
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Update(IDbConnection connection, StarshipEntity entity)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;UPDATE Starship
+</span><span style="color:#e6db74">                SET
+</span><span style="color:#e6db74">                Name = @name,
+</span><span style="color:#e6db74">                PositionX = @positionX,
+</span><span style="color:#e6db74">                PositionY = @positionY,
+</span><span style="color:#e6db74">                PositionZ = @positionZ
+</span><span style="color:#e6db74">                WHERE ID = @id&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                id = entity.Id,
+                name = entity.Name,
+                positionX = entity.Position.X,
+                positionY = entity.Position.Y,
+                positionZ = entity.Position.Z
+            });
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Save(SqlConnection connection, StarshipEntity entity)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;INSERT INTO Starship (Name, PositionX, PositionY, PositionZ)
+</span><span style="color:#e6db74">                VALUES (@name, @positionX, @positionY, @positionZ);&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                name = entity.Name,
+                positionX = entity.Position.X,
+                positionY = entity.Position.Y,
+                positionZ = entity.Position.Z
+            });
+    }
+}
+
+<span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipEntity</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+}</code></pre></div>
+
+<p><a name="queryObjects"></a></p>
+
+<h2 id="query-objects">Query Objects</h2>
+
+<p>Using the query object pattern, every database query and command is modeled as a separate class. This is the ultimate expression of the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a>. As with anything there are trade-offs to consider with this approach.</p>
+
+<p>A query object can represent any query, not just your standard entity CRUD operations. Want to get information about your products? Create a query object. Want to get information about customer review of a product? Create a query object. Your classes do not have to directly represent the database structure at all, but they can if you want.</p>
+
+<p>Occasionally you may not need every bit of information that an entity might give you, if a User is logging in to your system why do you need their real name and address? You only need to fetch their username and hashed password. When listing all of your products, do you need the customer ratings, stock levels, price history or just the id, name and current price? Different parts of the system require different views over the same data and with Query Objects you&rsquo;re not struggling with entity representations to get the information you want.</p>
+
+<p>Another example is getting calculated information from your data. Going back to my previous example, if you have a statistics record of something starting and a record of something finishing, a query object could fetch the average of all the times between those two records. This is the sort of query thats much harder to build with repositories.</p>
+
+<p>As the database commands can also be modeled separately, you don&rsquo;t have to update every field every time like you would with repositories or active record. Instead of updating an entire product you can create an UpdateProductPriceCommand object that takes a product id and the new price. This can help reduce database load and also reduces the chance for other fields to be updated by mistake.</p>
+
+<p>An important consideration with this approach is managing the sheer number of classes you might create. If your project is particularly large then you may end up with hundreds of these little objects. If you can&rsquo;t break your project up into smaller ones then there might be considerable cognitive overhead trying to keep your objects neat. Organization and naming conventions will help you here. You&rsquo;ll want to minimize the chances of a developer creating a new query object because they can&rsquo;t find the one that already does what they need.</p>
+
+<p>It is worth noting that these approaches are not mutually exclusive, I have often seen repositories handling domain entities backed up with query objects for the less standard queries and it&rsquo;s worked quite well.</p>
+
+<h3 id="public-service-layer-1">Public Service Layer</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipService</span> : IStarshipService
+{
+    <span style="color:#66d9ef">public</span> IEnumerable&lt;StarshipDTO&gt; GetPagedStarships(<span style="color:#66d9ef">long</span> pageNumber)
+    {
+        <span style="color:#66d9ef">var</span> getStarshipsQuery = <span style="color:#66d9ef">new</span> GetStarshipsQuery { PageNumber = pageNumber };
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            <span style="color:#66d9ef">var</span> starshipsResult = getStarshipsQuery.Execute(connection);
+            <span style="color:#66d9ef">return</span> Mapper.Map&lt;IEnumerable&lt;StarshipResult&gt;, IEnumerable&lt;StarshipDTO&gt;&gt;(starshipsResult);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CreateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">var</span> createRequest = Mapper.Map&lt;CreateStarshipRequest&gt;(starship);
+        <span style="color:#66d9ef">var</span> createCommand = <span style="color:#66d9ef">new</span> CreateStarshipCommand();
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            createCommand.Execute(connection, createRequest);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> UpdateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">var</span> updateRequest = Mapper.Map&lt;UpdateStarshipRequest&gt;(starship);
+        <span style="color:#66d9ef">var</span> updateCommand = <span style="color:#66d9ef">new</span> UpdateStarshipCommand();
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            updateCommand.Execute(connection, updateRequest);
+        }
+    }
+}</code></pre></div>
+
+<h3 id="data-access-1">Data Access</h3>
+
+<p>Each query object or command has an associated class to act as input or output of the command. You may be tempted to mix this concept with the DTOs coming out of the service layer, but even if they look the same they are semantically different. Also, if your service needs to use multiple query objects then the service needs to compose the results into a single DTO to pass back.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GetStarshipsQuery</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> PageSize { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#ae81ff">10</span>;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> PageNumber { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } = <span style="color:#ae81ff">0</span>;
+
+    <span style="color:#66d9ef">public</span> IEnumerable&lt;StarshipResult&gt; Execute(IDbConnection connection)
+    {
+        <span style="color:#66d9ef">return</span> connection
+            .Query(<span style="color:#e6db74">@&#34;SELECT Id, Name, PositionX, PositionY, PositionZ
+</span><span style="color:#e6db74">                        FROM Starship
+</span><span style="color:#e6db74">                        ORDER BY Name
+</span><span style="color:#e6db74">                        LIMIT @pageSize OFFSET @offset;&#34;</span>, <span style="color:#66d9ef">new</span> { pageSize = PageSize, offset = PageNumber * PageSize})
+            .Select(
+                row =&gt; <span style="color:#66d9ef">new</span> StarshipResult
+                {
+                    Id = row.Id,
+                    Name = row.Name,
+                    Position = <span style="color:#66d9ef">new</span> Vector3
+                    {
+                        X = row.PositionX,
+                        Y = row.PositionY,
+                        Z = row.PositionZ
+                    }
+                }
+            ).ToList();
+    }
+}
+
+<span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipResult</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+}</code></pre></div>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateStarshipCommand</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Execute(IDbConnection connection, CreateStarshipRequest request)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;INSERT INTO Starship (Name, PositionX, PositionY, PositionZ)
+</span><span style="color:#e6db74">                VALUES (@name, @positionX, @positionY, @positionZ);&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                name = request.Name,
+                positionX = request.Position.X,
+                positionY = request.Position.Y,
+                positionZ = request.Position.Z
+            });
+    }
+}
+
+<span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateStarshipRequest</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+}</code></pre></div>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateStarshipCommand</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Execute(IDbConnection connection, UpdateStarshipRequest request)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;UPDATE Starship
+</span><span style="color:#e6db74">                SET
+</span><span style="color:#e6db74">                Name = @name,
+</span><span style="color:#e6db74">                PositionX = @positionX,
+</span><span style="color:#e6db74">                PositionY = @positionY,
+</span><span style="color:#e6db74">                PositionZ = @positionZ
+</span><span style="color:#e6db74">                WHERE Id = @id;&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                id = request.Id,
+                name = request.Name,
+                positionX = request.Position.X,
+                positionY = request.Position.Y,
+                positionZ = request.Position.Z
+            }
+        );
+    }
+}
+
+<span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateStarshipRequest</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+}</code></pre></div>
+
+<p><a name="activeRecords"></a></p>
+
+<h2 id="active-records">Active Records</h2>
+
+<p>Active record has fallen out of favor in recent times but was once the go-to method for object persistence. I think the reasons for this are in the areas of testability and single responsibility principle but let&rsquo;s discuss it in more depth.</p>
+
+<p>What should be glaringly obvious from the example active record below is that it&rsquo;s doing two things, holding the fields for the record and also talking to the database. This often feel like two responsibilities and if you&rsquo;re in the mindset of query objects, even more than that. Further to this, you will notice that the lines of code for database access greatly outnumber the lines for the fields, so much so that you could even miss the fields if you weren&rsquo;t looking for them. Ok sure, you could inherit from a base class that magically hands the database parts, but let&rsquo;s be honest - this only hides that the class is doing too much, which may be fine for you.</p>
+
+<p>There are a couple of static methods in this example. You need to be able to fetch active records from the database without first having an active record. In this case it&rsquo;s common to put a static method on the active record class that will return instances of the record. This can cause issues for some testing strategies, although consider whether you really want to mock out all database access anyway. There are probably other ways to solve this issue without static methods although they would probably stray into the realms of the other strategies I&rsquo;ve described.</p>
+
+<p>On a personal note, I can&rsquo;t help but appreciate how neat usages of active records are. Getting a record, updating a field and calling save on it seems very pretty. My example of updating an active record updates every field but you don&rsquo;t have to do this, you can consider the UpdateStarship method messy or clear; this is probably up to you and your team.</p>
+
+<h3 id="public-service-layer-2">Public Service Layer</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipService</span> : IStarshipService
+{
+    <span style="color:#66d9ef">public</span> IEnumerable&lt;StarshipDTO&gt; GetPagedStarships(<span style="color:#66d9ef">long</span> pageNumber)
+    {
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            <span style="color:#66d9ef">var</span> starshipsResult = StarshipActiveRecord.GetStarships(connection, <span style="color:#ae81ff">10</span>, pageNumber);
+            <span style="color:#66d9ef">return</span> Mapper.Map&lt;IEnumerable&lt;StarshipActiveRecord&gt;, IEnumerable&lt;StarshipDTO&gt;&gt;(starshipsResult);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CreateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">var</span> record = <span style="color:#66d9ef">new</span> StarshipActiveRecord
+        {
+            Name = starship.Name,
+            Position = <span style="color:#66d9ef">new</span> Vector3
+            {
+                X = starship.PositionX,
+                Y = starship.PositionY,
+                Z = starship.PositionZ
+            }
+        };
+
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            record.Insert(connection);
+        }
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> UpdateStarship(StarshipDTO starship)
+    {
+        <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> connection = <span style="color:#66d9ef">new</span> SqlConnection(DatabaseConfiguration.ConnectionString))
+        {
+            <span style="color:#66d9ef">var</span> record = StarshipActiveRecord.GetById(connection, starship.Id);
+            record.Name = starship.Name;
+            record.Position.X = starship.PositionX;
+            record.Position.Y = starship.PositionY;
+            record.Position.Z = starship.PositionZ;
+            record.Update(connection);
+        }
+    }
+}</code></pre></div>
+
+<h3 id="data-access-2">Data Access</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StarshipActiveRecord</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+    <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+
+    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> IEnumerable&lt;StarshipActiveRecord&gt; GetStarships(IDbConnection connection, <span style="color:#66d9ef">long</span> pageNumber, <span style="color:#66d9ef">long</span> pageSize)
+    {
+        <span style="color:#66d9ef">return</span> connection
+            .Query(<span style="color:#e6db74">@&#34;SELECT Id, Name, PositionX, PositionY, PositionZ
+</span><span style="color:#e6db74">                    FROM Starship
+</span><span style="color:#e6db74">                    ORDER BY Name
+</span><span style="color:#e6db74">                    LIMIT @pageSize OFFSET @offset;&#34;</span>, <span style="color:#66d9ef">new</span> { pageSize, offset = pageNumber * pageSize })
+            .Select(
+                row =&gt; <span style="color:#66d9ef">new</span> StarshipActiveRecord
+                {
+                    Id = row.Id,
+                    Name = row.Name,
+                    Position = <span style="color:#66d9ef">new</span> Vector3
+                    {
+                        X = row.PositionX,
+                        Y = row.PositionY,
+                        Z = row.PositionZ
+                    }
+                }
+            ).ToList();
+    }
+
+    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> StarshipActiveRecord GetById(IDbConnection connection, <span style="color:#66d9ef">long</span> id)
+    {
+        <span style="color:#66d9ef">return</span> connection
+            .Query(<span style="color:#e6db74">@&#34;SELECT Id, Name, PositionX, PositionY, PositionZ
+</span><span style="color:#e6db74">                    FROM Starship
+</span><span style="color:#e6db74">                    WHERE Id = @id&#34;</span>, <span style="color:#66d9ef">new</span> { id })
+            .Select(
+                row =&gt; <span style="color:#66d9ef">new</span> StarshipActiveRecord
+                {
+                    Id = row.Id,
+                    Name = row.Name,
+                    Position = <span style="color:#66d9ef">new</span> Vector3
+                    {
+                        X = row.PositionX,
+                        Y = row.PositionY,
+                        Z = row.PositionZ
+                    }
+                }
+            ).Single();
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Insert(SqlConnection connection)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;INSERT INTO Starship (Name, PositionX, PositionY, PositionZ)
+</span><span style="color:#e6db74">              VALUES (@name, @positionX, @positionY, @positionZ);&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                name = Name,
+                positionX = Position.X,
+                positionY = Position.Y,
+                positionZ = Position.Z
+            });
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Update(SqlConnection connection)
+    {
+        connection.Execute(
+            <span style="color:#e6db74">@&#34;UPDATE Starship
+</span><span style="color:#e6db74">              SET
+</span><span style="color:#e6db74">                Name = @name,
+</span><span style="color:#e6db74">                PositionX = @positionX,
+</span><span style="color:#e6db74">                PositionY = @positionY,
+</span><span style="color:#e6db74">                PositionZ = @positionZ
+</span><span style="color:#e6db74">              WHERE Id = @id&#34;</span>,
+            <span style="color:#66d9ef">new</span>
+            {
+                id = Id,
+                name = Name,
+                positionX = Position.X,
+                positionY = Position.Y,
+                positionZ = Position.Z
+            });
+    }
+}</code></pre></div>
+
+<hr />
+
+<h5 id="disclaimer">Disclaimer</h5>
+
+<ul>
+<li>All examples are for demonstration purposes only; I haven&rsquo;t compiled it. Don&rsquo;t copy this code into your own projects. Read it, understand it and implement it yourself.</li>
+<li>I haven&rsquo;t included the code for the <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTO</a> but just know that this is a <a href="https://en.wikipedia.org/wiki/Plain_Old_CLR_Object">POCO</a> with basic data type fields.</li>
+</ul>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/architecture">#architecture</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/csharp">#csharp</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Sep 24, 2015 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

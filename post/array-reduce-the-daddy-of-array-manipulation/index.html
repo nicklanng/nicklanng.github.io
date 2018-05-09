@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="nicklanng" />
+<meta name="description" content="i do web stuff." />
+<meta name="keywords" content="blog, tech, go, web" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.40.2" />
+
+<link rel="canonical" href="https://nicklanng.github.io/post/array-reduce-the-daddy-of-array-manipulation/">
+<base href="https://nicklanng.github.io/" />
+<meta property="og:title" content="Array.prototype.reduce - The Daddy of JavaScript Array Manipulation" />
+<meta property="og:description" content="Shout out to mpjme&rsquo;s YouTube channel that inspired this post - see the video here: https://www.youtube.com/watch?v=Wl98eZpkp-c
+What is Array.prototype.reduce? Array.prototype.reduce is a function on the Array prototype in JavaScript. Its purpose is to do some sort of operation on each element in an array and then return a result of some type.
+arr.reduce(callback[, initialValue])  The initialValue is optional. It is often things like 0, [] or {} but it can be whatever you like." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicklanng.github.io/post/array-reduce-the-daddy-of-array-manipulation/" />
+
+
+
+<meta property="article:published_time" content="2016-01-09T17:58:50&#43;00:00"/>
+
+<meta property="article:modified_time" content="2016-01-09T17:58:50&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Array.prototype.reduce - The Daddy of JavaScript Array Manipulation"/>
+<meta name="twitter:description" content="Shout out to mpjme&rsquo;s YouTube channel that inspired this post - see the video here: https://www.youtube.com/watch?v=Wl98eZpkp-c
+What is Array.prototype.reduce? Array.prototype.reduce is a function on the Array prototype in JavaScript. Its purpose is to do some sort of operation on each element in an array and then return a result of some type.
+arr.reduce(callback[, initialValue])  The initialValue is optional. It is often things like 0, [] or {} but it can be whatever you like."/>
+
+
+
+<meta itemprop="name" content="Array.prototype.reduce - The Daddy of JavaScript Array Manipulation">
+<meta itemprop="description" content="Shout out to mpjme&rsquo;s YouTube channel that inspired this post - see the video here: https://www.youtube.com/watch?v=Wl98eZpkp-c
+What is Array.prototype.reduce? Array.prototype.reduce is a function on the Array prototype in JavaScript. Its purpose is to do some sort of operation on each element in an array and then return a result of some type.
+arr.reduce(callback[, initialValue])  The initialValue is optional. It is often things like 0, [] or {} but it can be whatever you like.">
+
+
+<meta itemprop="datePublished" content="2016-01-09T17:58:50&#43;00:00" />
+<meta itemprop="dateModified" content="2016-01-09T17:58:50&#43;00:00" />
+<meta itemprop="wordCount" content="421">
+
+
+
+<meta itemprop="keywords" content="javascript,code," />
+
+
+<link rel="stylesheet" href="css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background: #1D1F21;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #6699cc; }
+
+.post .content h1{ color: #6699cc; }
+.post .content h2{ color: #6699cc; }
+.post .content h3{ color: #6699cc; }
+.post .content h4{ color: #6699cc; }
+.post .content h5{ color: #6699cc; }
+.post .content h6{ color: #6699cc; }
+.post .content a:hover { color: #6699cc; }
+.social-link:hover { color: #6699cc; }
+.nav-item-title:hover { color: #6699cc; }
+.tag a:hover { color: #6699cc; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #6699cc; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #6699cc;
+}
+.post-list .title { color: #6699cc; }
+.rmore { color: #6699cc; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #6699cc;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Array.prototype.reduce - The Daddy of JavaScript Array Manipulation 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://nicklanng.github.io/">i do web stuff</a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="https://nicklanng.github.io/post/"><div class="nav-item-title">Posts</div></a>
+    
+    <a class="nav-item" href="https://nicklanng.github.io/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">gh</div></a>
+  
+
+  
+
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">twtr</div></a>
+  
+
+  
+
+</div>
+
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Array.prototype.reduce - The Daddy of JavaScript Array Manipulation </h1>
+    <div class="content"> 
+
+<p>Shout out to <strong>mpjme</strong>&rsquo;s YouTube channel that inspired this post - see the video here: <a href="https://www.youtube.com/watch?v=Wl98eZpkp-c">https://www.youtube.com/watch?v=Wl98eZpkp-c</a></p>
+
+<h2 id="what-is-array-prototype-reduce">What is Array.prototype.reduce?</h2>
+
+<p><strong>Array.prototype.reduce</strong> is a function on the <strong>Array</strong> prototype in JavaScript. Its purpose is to do some sort of operation on each element in an array and then return a result of some type.</p>
+
+<pre><code class="language-javascript">arr.reduce(callback[, initialValue])
+</code></pre>
+
+<p>The <strong>initialValue</strong> is optional. It is often things like <strong>0</strong>, <strong>[]</strong> or <strong>{}</strong> but it can be whatever you like.</p>
+
+<p>The callback is a function with the following arguments:</p>
+
+<ol>
+<li><strong>previousValue</strong> - the value returns from the last iteration</li>
+<li><strong>currentValue</strong> - the item in the array we&rsquo;re currently operating on</li>
+<li><strong>index</strong> - the index of the current item in the array</li>
+<li><strong>array</strong> - the array itself we are iterating</li>
+</ol>
+
+<p>Check out more detailed specs here: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce</a></p>
+
+<h2 id="let-s-have-some-fun">Let&rsquo;s have some fun</h2>
+
+<p>Lately, I&rsquo;ve been using the following <strong>Array</strong> functions a hell of a lot:</p>
+
+<ul>
+<li><strong>Array.prototype.map</strong> // transform an array into another array of the same length</li>
+<li><strong>Array.prototype.filter</strong> // get a subset of the array with elements that match the filter function</li>
+<li><strong>Array.prototype.reject</strong> // the opposite of Array.filter</li>
+</ul>
+
+<p>If you&rsquo;re a fan of <strong>F#</strong> or <strong>Linq</strong> in .Net or a multitude of other functional bits and bobs these should be familiar.</p>
+
+<p>Let&rsquo;s try to write our own version of these functions using <strong>Array.prototype.reduce</strong> as a starting block:</p>
+
+<pre><code class="language-javascript">const map = (array, mapping) =&gt;
+  array.reduce((result, item) =&gt; {
+    result.push(mapping(item)) // run the map function on the current item and add it to the new array
+    return result
+  }, []) // an empty array is our initial value
+
+const filter = (array, criteria) =&gt;
+  array.reduce((result, item) =&gt; {
+    if (criteria(item)) result.push(item) // if the criteria function result is true, add this item to the new array
+    return result
+  }, []) // an empty array is our initial value
+
+const reject = (array, criteria) =&gt;
+  array.reduce((result, item) =&gt; {
+    if (!criteria(item)) result.push(item) // if the criteria function result is false then do not add that item to the new array
+    return result
+  }, []) // an empty array is our initial value
+</code></pre>
+
+<h3 id="the-usage-example">The usage example</h3>
+
+<pre><code class="language-javascript">const orders = [
+  { amount: 250 },
+  { amount: 400 },
+  { amount: 100 },
+  { amount: 325 }
+]
+
+const orderAmounts = map(orders, item =&gt; item.amount)
+console.log(orderAmounts) // [ 250, 400, 100, 325 ]
+
+const ordersOver300 = filter(orders, item =&gt; item.amount &gt;= 300)
+console.log(ordersOver300) // [ { amount: 400 }, { amount: 325 } ]
+
+const orderUnder300 = reject(orders, item =&gt; item.amount &gt;= 300)
+console.log(orderUnder300) // [ { amount: 250 }, { amount: 100 } ]
+</code></pre>
+ </div>
+    <footer class="post-footer">
+
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/javascript">#javascript</a>
+      </div>
+    
+      <div class="tag">
+        <a href="https://nicklanng.github.io/tags/code">#code</a>
+      </div>
+    
+</div>
+
+    <div class="date"> Jan 9, 2016 </div>
+  </div>
+
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:rinse@rinseworld.com"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/nicklanng" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+
+  
+  <a href="https://twitter.com/nicklanng" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+
+  <div class="social-link">
+  <a href="https://nicklanng.github.io/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright"> Copyright (c) 2018, all rights reserved. </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+
