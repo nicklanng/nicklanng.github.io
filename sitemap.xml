@@ -58,13 +58,13 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/architecture/</loc>
+    <loc>https://nicklanng.github.io/tags/architecture/</loc>
     <lastmod>2015-11-13T16:12:42+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/tags/architecture/</loc>
+    <loc>https://nicklanng.github.io/categories/architecture/</loc>
     <lastmod>2015-11-13T16:12:42+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -76,20 +76,14 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/ci/</loc>
-    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nicklanng.github.io/tags/ci/</loc>
     <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/code/</loc>
-    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/ci/</loc>
+    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -100,8 +94,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/coffeescript/</loc>
-    <lastmod>2015-11-13T16:12:42+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/code/</loc>
+    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -112,8 +106,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/csharp/</loc>
-    <lastmod>2015-09-24T16:01:36+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/coffeescript/</loc>
+    <lastmod>2015-11-13T16:12:42+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -124,8 +118,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/docker/</loc>
-    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/csharp/</loc>
+    <lastmod>2015-09-24T16:01:36+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -136,7 +130,7 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/dockerhub/</loc>
+    <loc>https://nicklanng.github.io/categories/docker/</loc>
     <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -148,8 +142,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/fsharp/</loc>
-    <lastmod>2015-07-17T12:56:56+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/dockerhub/</loc>
+    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -160,8 +154,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/github/</loc>
-    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/fsharp/</loc>
+    <lastmod>2015-07-17T12:56:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -172,8 +166,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/hashicorp/</loc>
-    <lastmod>2017-10-23T07:40:15+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/github/</loc>
+    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -184,8 +178,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/javascript/</loc>
-    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/hashicorp/</loc>
+    <lastmod>2017-10-23T07:40:15+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -196,8 +190,8 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/mongodb/</loc>
-    <lastmod>2015-07-17T12:56:56+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/javascript/</loc>
+    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -208,13 +202,19 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/node/</loc>
-    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/mongodb/</loc>
+    <lastmod>2015-07-17T12:56:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://nicklanng.github.io/tags/node/</loc>
+    <lastmod>2016-04-19T15:06:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nicklanng.github.io/categories/node/</loc>
     <lastmod>2016-04-19T15:06:08+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -226,13 +226,13 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/security/</loc>
+    <loc>https://nicklanng.github.io/tags/security/</loc>
     <lastmod>2017-10-23T07:40:15+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/tags/security/</loc>
+    <loc>https://nicklanng.github.io/categories/security/</loc>
     <lastmod>2017-10-23T07:40:15+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -244,25 +244,25 @@
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/travis/</loc>
-    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nicklanng.github.io/tags/travis/</loc>
     <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nicklanng.github.io/categories/vault/</loc>
-    <lastmod>2017-10-23T07:40:15+00:00</lastmod>
+    <loc>https://nicklanng.github.io/categories/travis/</loc>
+    <lastmod>2017-09-10T21:16:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://nicklanng.github.io/tags/vault/</loc>
+    <lastmod>2017-10-23T07:40:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nicklanng.github.io/categories/vault/</loc>
     <lastmod>2017-10-23T07:40:15+00:00</lastmod>
     <priority>0</priority>
   </url>
