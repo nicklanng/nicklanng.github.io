@@ -1,4 +1,16 @@
 <style>
+/* Web typography at 80% of default scale */
+@media screen {
+  :root {
+    --base-font-size-sm: 12px;
+    --base-font-size-md: 13px;
+    --base-font-size-lg: 14px;
+    --base-font-size-xl: 16px;
+    --line-height-md: 1.4rem;
+    --line-height-sm: 1rem;
+  }
+}
+
 /* Professional theme with teal accent */
 body {
   background-color: #f8fafc !important;
