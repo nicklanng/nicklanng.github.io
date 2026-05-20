@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "build": "npx --yes -- single-page-markdown-website styles.md index.md --open"
+  },
+  "single-page-markdown-website": {
+    "baseUrl": "https://nicklanng.github.io",
+    "title": "Who is Nick Lanng?",
+    "description": "Nick Lanng's CV",
+    "toc": true,
+    "sections": false,
+    "links": [
+      {
+        "text": "GitHub",
+        "url": "https://github.com/nicklanng"
+      }
+    ]
+  }
+}
