@@ -8,3 +8,4 @@ Personal site and CV, built from Markdown with [single-page-markdown-website](ht
 2. Run `npm run build`.
 3. Copy the output to the site root: `cp build/index.html index.html`
 4. Commit and push.
+
