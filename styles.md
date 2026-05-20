@@ -11,12 +11,17 @@
   }
 }
 
-/* Nav a couple of points larger than default sidebar/top-bar scale */
+/* Sidebar nav a couple of points larger than default scale */
 @media screen {
-  .menu,
-  .top-bar {
+  .menu {
     font-size: 15px !important;
     line-height: 1.35 !important;
+  }
+
+  .top-bar a,
+  .top-bar__title,
+  .top-bar__title-link {
+    font-size: 15px !important;
   }
 }
 
