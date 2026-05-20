@@ -14,7 +14,7 @@ Golang, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typ
 
 ## EXPERIENCE
 
-### Copper, Remote // February 2021 - Present
+### Copper, Remote // Feb 2021 - Present
 
 Staff Engineer
 
@@ -48,7 +48,7 @@ Developed a customer-facing form builder that enabled users to create embeddable
 
 ---
 
-### InfoSum, Basingstoke | December 2019 – January 2021
+### InfoSum, Basingstoke // Dec 2019 – Jan 2021
 
 Golang Engineer
 
@@ -61,7 +61,7 @@ Worked on privacy-first data collaboration products, building new platform capab
 
 ---
 
-### UserReplay, Theale | January 2019 – November 2019
+### UserReplay, Theale // Jan 2019 – Nov 2019
 
 Golang Engineer
 
@@ -72,7 +72,7 @@ Contributed to the modernization of a high-volume session recording and replay p
 
 ---
 
-### Lush Digital, London | May 2018 – December 2018
+### Lush Digital, London // May 2018 – Dec 2018
 
 Golang Engineer
 
@@ -83,7 +83,7 @@ Helped re-architect Lush’s ecommerce platform from a PHP monolith to Go micros
 
 ---
 
-### NewVoiceMedia, Basingstoke | September 2015 – April 2018
+### NewVoiceMedia, Basingstoke // Sep 2015 – Apr 2018
 
 Senior Software Engineer
 
@@ -97,7 +97,7 @@ Technical lead of a platform team responsible for foundational services and API 
 
 ---
 
-### LexisNexis, Woking (Contract) | May 2014 – March 2015
+### LexisNexis, Woking (Contract) // May 2014 – Mar 2015
 
 Developer
 
@@ -107,7 +107,7 @@ Supported the migration of on-premise systems to AWS.
 
 ---
 
-### NewVoiceMedia, Basingstoke | September 2011 – March 2014
+### NewVoiceMedia, Basingstoke | Sep 2011 – Mar 2014
 
 Senior Software Engineer
 
@@ -117,7 +117,7 @@ Worked on large-scale SaaS contact centre products.
 
 ---
 
-### Pitney Bowes Software (Portrait Software), Henley-on-Thames | April 2010 – September 2011
+### Pitney Bowes Software, Henley-on-Thames // Apr 2010 – Sep 2011
 
 Product Engineer
 
@@ -127,7 +127,7 @@ Developed core components of the Portrait Foundation CRM toolkit.
 
 ---
 
-### Newman and Spurr Consultancy, Camberley | November 2007 – December 2009
+### NSC, Camberley // Nov 2007 – Dec 2009
 
 Programmer / Analyst
 
