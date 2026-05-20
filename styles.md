@@ -11,6 +11,15 @@
   }
 }
 
+/* Nav a couple of points larger than default sidebar/top-bar scale */
+@media screen {
+  .menu,
+  .top-bar {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+}
+
 /* Professional theme with teal accent */
 body {
   background-color: #f8fafc !important;

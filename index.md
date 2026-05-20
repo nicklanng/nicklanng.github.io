@@ -17,30 +17,31 @@ Golang, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typ
 ### Copper, Remote // February 2021 - Present
 
 Staff Engineer
+
 Technical lead and senior individual contributor responsible for designing and delivering cloud-native platform capabilities, modernizing legacy systems, and improving developer experience across the organization.
 
-**Wyndy.co**  
+**Wyndy.co**
+
 Designed and delivered the backend for a new high-performance CRM focused on speed, simplicity, and scalability.
 - Built a suite of Go microservices communicating over gRPC.
-- Designed data storage using Amazon DynamoDB and Amazon S3.
-- Used Apache Kafka for asynchronous communication, background jobs, and data synchronization.
+- Designed data storage using Amazon DynamoDB and Amazon S3. Apache Kafka for asynchronous communication, background jobs, and data synchronization.
 - Developed a custom job execution system on top of Kubernetes Jobs.
 - Deployed to Amazon EKS with infrastructure managed using eksctl, Helm, and Karpenter.
-- Implemented CI/CD pipelines using GitHub Actions and Argo CD.
 - Added end-to-end observability with logs, metrics, and distributed tracing in Grafana Cloud.
 - Delivered a highly scalable, low-latency architecture capable of supporting significant growth.
 
 **Forms**
+
 Developed a customer-facing form builder that enabled users to create embeddable forms for their websites.
 - Built with Next.js.
 - Automatically created and updated records in the Copper CRM from form submissions.
 
 **Platform and Architecture Leadership**
+
 - Led the design and implementation of reusable platform services including authentication, user management, billing, and shared infrastructure components.
 - Drove adoption of Go microservices for new product development, extending the existing Rails monolith with independently deployable services.
 - Designed AWS infrastructure and deployment patterns used across multiple services and environments.
 - Established standards for CI/CD, observability, and service-to-service communication.
-- Built Grafana dashboards and monitoring tooling to improve operational visibility.
 - Mentored engineers and provided architectural guidance across teams.
 - Championed improvements to developer experience, engineering processes, and long-term technical strategy.
 - Evaluated security, compliance, and architectural considerations for emerging fintech products integrating with providers such as Plaid and Stripe.
@@ -50,6 +51,7 @@ Developed a customer-facing form builder that enabled users to create embeddable
 ### InfoSum, Basingstoke | December 2019 – January 2021
 
 Golang Engineer
+
 Worked on privacy-first data collaboration products, building new platform capabilities and improving deployment reliability.
 - Extended the Discovery marketplace, enabling customers to advertise datasets to other clients.
 - Implemented rolling deployments in Kubernetes, eliminating service downtime during releases.
@@ -62,6 +64,7 @@ Worked on privacy-first data collaboration products, building new platform capab
 ### UserReplay, Theale | January 2019 – November 2019
 
 Golang Engineer
+
 Contributed to the modernization of a high-volume session recording and replay platform.
 - Rebuilt core components as distributed services coordinated through Apache Kafka.
 - Implemented search and analytics using Elasticsearch and Kibana.
@@ -72,6 +75,7 @@ Contributed to the modernization of a high-volume session recording and replay p
 ### Lush Digital, London | May 2018 – December 2018
 
 Golang Engineer
+
 Helped re-architect Lush’s ecommerce platform from a PHP monolith to Go microservices.
 - Rebuilt core online store and supporting services in Go.
 - Containerized applications with Docker and deployed them to Kubernetes on Google Cloud Platform.
@@ -82,6 +86,7 @@ Helped re-architect Lush’s ecommerce platform from a PHP monolith to Go micros
 ### NewVoiceMedia, Basingstoke | September 2015 – April 2018
 
 Senior Software Engineer
+
 Technical lead of a platform team responsible for foundational services and API enablement.
 - Built a voicemail microservice in Go, deployed to AWS ECS using Docker.
 - Developed a Chrome extension that maintained persistent WebRTC connections across page navigation.
@@ -95,6 +100,7 @@ Technical lead of a platform team responsible for foundational services and API 
 ### LexisNexis, Woking (Contract) | May 2014 – March 2015
 
 Developer
+
 Supported the migration of on-premise systems to AWS.
 - Designed and implemented AWS networking, including VPCs and secure connectivity to on-premise Active Directory.
 - Worked closely with operations, networking, and information security teams to establish the new cloud environment.
@@ -104,6 +110,7 @@ Supported the migration of on-premise systems to AWS.
 ### NewVoiceMedia, Basingstoke | September 2011 – March 2014
 
 Senior Software Engineer
+
 Worked on large-scale SaaS contact centre products.
 - Developed backend systems using C#, ASP.NET MVC, Java, R, and MySQL.
 - Served on the Architecture Guild, helping shape technical standards and address cross-team architectural challenges.
@@ -113,6 +120,7 @@ Worked on large-scale SaaS contact centre products.
 ### Pitney Bowes Software (Portrait Software), Henley-on-Thames | April 2010 – September 2011
 
 Product Engineer
+
 Developed core components of the Portrait Foundation CRM toolkit.
 - Built features in C# and C++ for multi-channel CRM and process automation software.
 - Led the re-architecture of key product components.
@@ -122,6 +130,7 @@ Developed core components of the Portrait Foundation CRM toolkit.
 ### Newman and Spurr Consultancy, Camberley | November 2007 – December 2009
 
 Programmer / Analyst
+
 Delivered simulation and training software for defence clients.
 - Developed scripted multiplayer first-person training exercises.
 - Deployed and supported military training exercises across the UK, the Netherlands, and Kuwait
