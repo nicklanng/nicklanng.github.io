@@ -138,5 +138,4 @@ Delivered simulation and training software for defence clients.
 ---
 
 ## EDUCATION
-BSc (Hons) Computer Science, University of Exeter
-A-Level: Maths, Further Maths, Computing, Music Tech
+BSc (Hons) Computer Science, University of Exeter // A-Level: Maths, Further Maths, Computing, Music Tech
