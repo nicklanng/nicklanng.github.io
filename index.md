@@ -8,7 +8,7 @@ Senior software engineer and technical leader with extensive experience designin
 
 ## SKILLS
 
-Golang, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescript, Node.js, React, Rust, C#, Java, SQL, PostgreSQL, MySQL, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD)
+Go, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescript, Node.js, React, Rust, C#, Java, SQL, PostgreSQL, MySQL, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD)
 
 ---
 
@@ -107,7 +107,7 @@ Supported the migration of on-premise systems to AWS.
 
 ---
 
-### NewVoiceMedia, Basingstoke | Sep 2011 – Mar 2014
+### NewVoiceMedia, Basingstoke // Sep 2011 – Mar 2014
 
 Senior Software Engineer
 
