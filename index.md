@@ -8,7 +8,7 @@ Senior software engineer and technical leader with extensive experience designin
 
 ## SKILLS
 
-Go, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescript, Node.js, React, Rust, C#, Java, SQL, PostgreSQL, MySQL, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD)
+Go, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescript, Node.js, React, C#, Java, SQL, PostgreSQL, MySQL, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD)
 
 ---
 
