@@ -8,7 +8,7 @@ Senior software engineer and technical leader with extensive experience designin
 
 ## SKILLS
 
-Go, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescript, Node.js, React, C#, Java, SQL, PostgreSQL, MySQL, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD)
+Go, gRPC, Kubernetes, DynamoDB, Apache Kafka, Amazon Web Services (AWS), Terraform, Flux, ArgoCD, JavaScript, Typescript, Node.js, React, C#, Java, SQL, PostgreSQL, MySQL, OpenSearch, Keycloak, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD), AI-Assisted Development
 
 ---
 
@@ -19,6 +19,17 @@ Go, Kubernetes, DynamoDB, Amazon Web Services (AWS), ArgoCD, JavaScript, Typescr
 Staff Engineer
 
 Technical lead and senior individual contributor responsible for designing and delivering cloud-native platform capabilities, modernizing legacy systems, and improving developer experience across the organization.
+
+**Nickel — Platform and Architecture Lead**
+
+Architected and led the build of Nickel, Copper's new multi-tenant platform for launching vertical products quickly on shared foundations.
+- Designed the platform architecture: Go HTTP edge services, a gRPC domain backbone, Kafka event streams, and single-table DynamoDB, with strict ownership boundaries between domains.
+- Led the design and implementation of reusable platform services: identity and SSO (Keycloak), organizations and membership, billing and entitlements, records and search (OpenSearch), calendar, CMS, integrations with an encrypted credential vault, and a workflow automation engine with its own work-queue runners.
+- Delivered products on top of the platform, including Rally, an agency hub with events, registration, payments, and QR check-in for network-marketing organizations.
+- Designed the AWS infrastructure (EKS, Terraform, Flux GitOps, Aurora PostgreSQL with IAM authentication) and the deployment patterns used across every service and environment.
+- Established the engineering standards: contract-first TDD with protobuf and integration specs, CI/CD with automatic service discovery, and observability dashboards and alerting in Grafana.
+- Built an AI-assisted development workflow, with codified rules, skills, and review loops that let parallel coding agents deliver production changes to the same standards as the team.
+- As the team became smaller and moved to AI-assisted development, led the platform's evolution into a modular Go monolith on PostgreSQL, keeping the domain boundaries while reducing operational overhead.
 
 **Wyndy.co**
 
@@ -36,15 +47,11 @@ Developed a customer-facing form builder that enabled users to create embeddable
 - Built with Next.js.
 - Automatically created and updated records in the Copper CRM from form submissions.
 
-**Platform and Architecture Leadership**
+**Wider Technical Leadership**
 
-- Led the design and implementation of reusable platform services including authentication, user management, billing, and shared infrastructure components.
 - Drove adoption of Go microservices for new product development, extending the existing Rails monolith with independently deployable services.
-- Designed AWS infrastructure and deployment patterns used across multiple services and environments.
-- Established standards for CI/CD, observability, and service-to-service communication.
-- Mentored engineers and provided architectural guidance across teams.
-- Championed improvements to developer experience, engineering processes, and long-term technical strategy.
 - Evaluated security, compliance, and architectural considerations for emerging fintech products integrating with providers such as Plaid and Stripe.
+- Mentored engineers and provided architectural guidance across teams, shaping engineering processes and long-term technical strategy.
 
 ---
 
