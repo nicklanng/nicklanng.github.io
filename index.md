@@ -1,31 +1,40 @@
 # NICK LANNG
 
-[nicklanng1@gmail.com](mailto:nicklanng1@gmail.com) • [github.com/nicklanng](https://github.com/nicklanng)
+Basingstoke, Hampshire, UK  
+[nicklanng1@gmail.com](mailto:nicklanng1@gmail.com) • [linkedin.com/in/nick-lanng-26b31692](https://www.linkedin.com/in/nick-lanng-26b31692/) • [github.com/nicklanng](https://github.com/nicklanng)
 
 ## PROFILE
 
-Senior software engineer and technical leader with extensive experience designing and building cloud-native systems on AWS. I work across the stack—from Go services and Kubernetes infrastructure to CI/CD pipelines, observability, and developer tooling—with a strong focus on creating secure, scalable platforms and improving developer productivity. I’m particularly interested in architecture and developer experience, and have led the design and implementation of foundational platform capabilities such as authentication, billing, and shared services to help teams deliver products faster and more consistently.
+Staff engineer and technical leader with almost 20 years of experience, most recently architecting and leading the build of Nickel, Copper's multi-tenant platform for launching new products on shared foundations. I design cloud-native systems on AWS end to end, from Go services, event streams, and data modelling to Kubernetes, GitOps, CI/CD, and observability. I care most about architecture and developer experience: clear domain boundaries, reusable platform services such as identity, billing, and automation, and workflows (including AI-assisted development) that let small teams ship quickly and safely.
 
 ## SKILLS
 
-Go, gRPC, Kubernetes, DynamoDB, Apache Kafka, Amazon Web Services (AWS), Terraform, Flux, ArgoCD, JavaScript, Typescript, Node.js, React, C#, Java, SQL, PostgreSQL, MySQL, OpenSearch, Keycloak, Docker, Microservices, Agile Methodologies, Test Driven Development (TDD), Behaviour-Driven Development (BDD), Team Leadership, Software Architecture, Continuous Integration (CI), Continuous Delivery (CD), AI-Assisted Development
+**Languages:** Go, TypeScript, JavaScript, Node.js, React, SQL
+
+**Cloud & Infrastructure:** Amazon Web Services (AWS: EKS, S3, CloudFront, KMS, SES), Kubernetes, Helm, Kustomize, Terraform, Flux, ArgoCD, Docker, GitHub Actions, gRPC, Protocol Buffers, Apache Kafka, Keycloak, Microservices
+
+**Observability:** OpenTelemetry, Grafana, Prometheus, Loki, Tempo
+
+**Data:** DynamoDB, PostgreSQL, OpenSearch
+
+**Practices:** Software Architecture, Team Leadership, Test-Driven Development (TDD), Behaviour-Driven Development (BDD), End-to-End Testing (Playwright), Continuous Integration and Delivery (CI/CD), Agile, AI-Assisted Development
 
 ---
 
 ## EXPERIENCE
 
-### Copper, Remote // Feb 2021 - Present
+### Copper, Remote // Feb 2021 – Present
 
 Staff Engineer
 
-Technical lead and senior individual contributor responsible for designing and delivering cloud-native platform capabilities, modernizing legacy systems, and improving developer experience across the organization.
+Technical lead and senior individual contributor responsible for designing and delivering cloud-native platform capabilities, modernising legacy systems, and improving developer experience across the organisation.
 
 **Nickel — Platform and Architecture Lead**
 
 Architected and led the build of Nickel, Copper's new multi-tenant platform for launching vertical products quickly on shared foundations.
 - Designed the platform architecture: Go HTTP edge services, a gRPC domain backbone, Kafka event streams, and single-table DynamoDB, with strict ownership boundaries between domains.
-- Led the design and implementation of reusable platform services: identity and SSO (Keycloak), organizations and membership, billing and entitlements, records and search (OpenSearch), calendar, CMS, integrations with an encrypted credential vault, and a workflow automation engine with its own work-queue runners.
-- Delivered products on top of the platform, including Rally, an agency hub with events, registration, payments, and QR check-in for network-marketing organizations.
+- Led the design and implementation of reusable platform services: identity and SSO (Keycloak), organisations and membership, billing and entitlements, records and search (OpenSearch), calendar, CMS, integrations with an encrypted credential vault, and a workflow automation engine with its own work-queue runners.
+- Delivered products on top of the platform, including Rally, an agency hub with events, registration, payments, and QR check-in for network-marketing organisations.
 - Designed the AWS infrastructure (EKS, Terraform, Flux GitOps, Aurora PostgreSQL with IAM authentication) and the deployment patterns used across every service and environment.
 - Established the engineering standards: contract-first TDD with protobuf and integration specs, CI/CD with automatic service discovery, and observability dashboards and alerting in Grafana.
 - Built an AI-assisted development workflow, with codified rules, skills, and review loops that let parallel coding agents deliver production changes to the same standards as the team.
@@ -35,17 +44,14 @@ Architected and led the build of Nickel, Copper's new multi-tenant platform for 
 
 Designed and delivered the backend for a new high-performance CRM focused on speed, simplicity, and scalability.
 - Built a suite of Go microservices communicating over gRPC.
-- Designed data storage using Amazon DynamoDB and Amazon S3. Apache Kafka for asynchronous communication, background jobs, and data synchronization.
+- Designed data storage on Amazon DynamoDB and Amazon S3, with Apache Kafka for asynchronous communication, background jobs, and data synchronisation.
 - Developed a custom job execution system on top of Kubernetes Jobs.
 - Deployed to Amazon EKS with infrastructure managed using eksctl, Helm, and Karpenter.
 - Added end-to-end observability with logs, metrics, and distributed tracing in Grafana Cloud.
-- Delivered a highly scalable, low-latency architecture capable of supporting significant growth.
 
 **Forms**
 
-Developed a customer-facing form builder that enabled users to create embeddable forms for their websites.
-- Built with Next.js.
-- Automatically created and updated records in the Copper CRM from form submissions.
+Built an embeddable form builder in Next.js that created and updated Copper CRM records directly from customers' website form submissions.
 
 **Wider Technical Leadership**
 
@@ -72,10 +78,10 @@ Worked on privacy-first data collaboration products, building new platform capab
 
 Golang Engineer
 
-Contributed to the modernization of a high-volume session recording and replay platform.
+Contributed to the modernisation of a high-volume session recording and replay platform.
 - Rebuilt core components as distributed services coordinated through Apache Kafka.
 - Implemented search and analytics using Elasticsearch and Kibana.
-- Developed services in Go and Node.js, containerized with Docker and deployed to Kubernetes on AWS EKS.
+- Developed services in Go and Node.js, containerised with Docker and deployed to Kubernetes on AWS EKS.
 
 ---
 
@@ -85,7 +91,7 @@ Golang Engineer
 
 Helped re-architect Lush’s ecommerce platform from a PHP monolith to Go microservices.
 - Rebuilt core online store and supporting services in Go.
-- Containerized applications with Docker and deployed them to Kubernetes on Google Cloud Platform.
+- Containerised applications with Docker and deployed them to Kubernetes on Google Cloud Platform.
 - Identified and mitigated security risks relating to JWT handling and secret management.
 
 ---
@@ -108,9 +114,7 @@ Technical lead of a platform team responsible for foundational services and API 
 
 Developer
 
-Supported the migration of on-premise systems to AWS.
-- Designed and implemented AWS networking, including VPCs and secure connectivity to on-premise Active Directory.
-- Worked closely with operations, networking, and information security teams to establish the new cloud environment.
+Designed the AWS networking (VPCs and secure connectivity to on-premise Active Directory) for a migration of on-premise systems to the cloud.
 
 ---
 
@@ -118,9 +122,7 @@ Supported the migration of on-premise systems to AWS.
 
 Senior Software Engineer
 
-Worked on large-scale SaaS contact centre products.
-- Developed backend systems using C#, ASP.NET MVC, Java, R, and MySQL.
-- Served on the Architecture Guild, helping shape technical standards and address cross-team architectural challenges.
+Built backend systems for SaaS contact centre products in C#, Java, and MySQL, and served on the Architecture Guild.
 
 ---
 
@@ -128,9 +130,7 @@ Worked on large-scale SaaS contact centre products.
 
 Product Engineer
 
-Developed core components of the Portrait Foundation CRM toolkit.
-- Built features in C# and C++ for multi-channel CRM and process automation software.
-- Led the re-architecture of key product components.
+Built and re-architected core components of the Portrait Foundation CRM toolkit in C# and C++.
 
 ---
 
@@ -138,9 +138,7 @@ Developed core components of the Portrait Foundation CRM toolkit.
 
 Programmer / Analyst
 
-Delivered simulation and training software for defence clients.
-- Developed scripted multiplayer first-person training exercises.
-- Deployed and supported military training exercises across the UK, the Netherlands, and Kuwait
+Developed multiplayer simulation training software for defence clients, deploying it on exercises in the UK, the Netherlands, and Kuwait.
 
 ---
 

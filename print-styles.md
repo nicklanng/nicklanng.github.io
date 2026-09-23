@@ -2,10 +2,8 @@
 @media print {
   @page {
     size: A4;
-    margin-top: 18mm;
-    margin-right: 18mm;
-    margin-bottom: 18mm;
-    margin-left: 18mm;
+    margin: 12mm 14mm;
+    background: #0c1017;
   }
 
   :root {
@@ -63,9 +61,7 @@
   .content__inner {
     max-width: none !important;
     margin: 0 !important;
-    /* @page margins are unreliable in Chrome PDF export; pad content instead */
-    padding: 18mm !important;
-    box-sizing: border-box !important;
+    padding: 0 !important;
   }
 
   .content::before,
@@ -111,8 +107,14 @@
   }
 
   /* Dark theme — always used for print/PDF */
-  body {
+  html,
+  body,
+  .content,
+  .content__inner {
     background: #0c1017 !important;
+  }
+
+  body {
     color: #cbd5e1 !important;
   }
 
