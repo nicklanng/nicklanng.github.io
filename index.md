@@ -35,7 +35,7 @@ Architected and led the build of Nickel, Copper's new multi-tenant platform for 
 - Designed the platform architecture: Go HTTP edge services, a gRPC domain backbone, Kafka event streams, and single-table DynamoDB, with strict ownership boundaries between domains.
 - Led the design and implementation of reusable platform services: identity and SSO (Keycloak), organisations and membership, billing and entitlements, records and search (OpenSearch), calendar, CMS, integrations with an encrypted credential vault, and a workflow automation engine with its own work-queue runners.
 - Delivered products on top of the platform, including Rally, an agency hub with events, registration, payments, and QR check-in for network-marketing organisations.
-- Designed the AWS infrastructure (EKS, Terraform, Flux GitOps, Aurora PostgreSQL with IAM authentication) and the deployment patterns used across every service and environment.
+- Designed the AWS infrastructure (DynamoDB, EKS, Terraform, Flux GitOps) and the deployment patterns used across every service and environment.
 - Established the engineering standards: contract-first TDD with protobuf and integration specs, CI/CD with automatic service discovery, and observability dashboards and alerting in Grafana.
 - Built an AI-assisted development workflow, with codified rules, skills, and review loops that let parallel coding agents deliver production changes to the same standards as the team.
 - As the team became smaller and moved to AI-assisted development, led the platform's evolution into a modular Go monolith on PostgreSQL, keeping the domain boundaries while reducing operational overhead.
